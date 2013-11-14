@@ -1,0 +1,84 @@
+margin = {t: 20, r: 20, b: 20, l:40}
+w = 250 - margin.l - margin.r
+h = 140 - margin.t - margin.b
+x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1)
+y = d3.scale.linear().range([h, 0])
+
+xAxis = d3.svg.axis()
+  .orient('bottom')
+  .tickFormat((d, i) -> if i%2 is 0 then d else '')
+  .tickSize(3, 0, 0)
+  .scale(x)
+
+yAxis = d3.svg.axis()
+  .orient('left')
+  .tickFormat((d, i) -> if i%2 is 0 then d else '')
+  .tickSize(3, 0, 0)
+  .scale(y)
+
+makePlot = (self, data) ->
+  yearData = data.years
+  el = d3.select(self)
+
+  removePlot = () ->
+    el.on('click', () -> el.select('.plotDiv').remove())
+
+  do ->
+    plotDiv = el.append('div').attr('class', 'plotDiv')
+
+    plotSvg = plotDiv.append('svg')
+      .attr({
+        width: w + margin.l + margin.r
+        height: h + margin.t + margin.b
+      })
+    .append('g')
+      .attr('class', 'plotG')
+      .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
+
+    x.domain(yearData.map (d) -> d.year)
+    y.domain([0, d3.max(yearData, (d) -> d.applicants)])
+
+    plotSvg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(' + [0, h] + ')')
+      .call(xAxis)
+
+    plotSvg.append('g')
+      .attr('class', 'y axis')
+      .call(yAxis)
+
+    plotRectsJoin = plotSvg.selectAll('.plotRect')
+      .data(yearData)
+
+    plotRects = plotRectsJoin.enter().append('rect')
+      .attr({
+        class: 'plotRect'
+        width: x.rangeBand()
+        height: (d) -> h - y(d.applicants)
+        x: (d) -> x(d.year)
+        y: (d) -> y(d.applicants)  
+      })
+
+    removePlot()
+
+d3.json '/data/nested.json', (json) ->
+
+  countryJoin = d3.select('#main').selectAll('.destination')
+    .data(json, (d) -> d.destination)
+  
+  countryDivs = countryJoin.enter().append('div')
+    .attr('class', 'destination')
+    .html((d) -> '<h2>' + d.destination + '</h2>')
+
+  originJoin = countryDivs.selectAll('.origin')
+    .data((d) -> d.origins)
+
+  originDivs = originJoin.enter().append('div').attr('class', 'origin')
+    .on('click', (d) -> makePlot(this, d))
+    .html((d) -> '<h4>' + d.origin + '</h4> ' + d.total)
+
+  # yearJoin = originDivs.selectAll('.year')
+  #   .data((d) -> d.years)
+
+  # yearDivs = yearJoin.enter().append('div').attr('clear', 'year')
+

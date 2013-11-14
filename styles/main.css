@@ -248,7 +248,7 @@ section {
   font-size: 14px;
   padding: 7px 0;
   padding-left: 38px;
-  background: url(/images/tgm-logo-30px.png) left center no-repeat;
+  background: url(./images/tgm-logo-30px.png) left center no-repeat;
   text-align: right;
   font-weight: 500;
 }
@@ -256,4 +256,28 @@ section {
   color: #111111;
   text-decoration: underline;
 }
-/* viz-specific things below */
+/* viz-specific things below */div.destination {
+  float: left;
+  width: 250px;
+  margin: 1em 0.5em;
+  display: inline-block;
+  padding: 15px 20px;
+  background-color: white;
+}
+div.destination h2 {
+  line-height: 0.8em;
+  margin-top: 0;
+}
+div.destination .origin h4 {
+  line-height: 1em;
+  display: inline;
+}
+div.destination .origin .plotDiv {
+  margin: 6px 0;
+}
+div.destination .origin .plotDiv .axis path,
+div.destination .origin .plotDiv .axis line {
+  fill: none;
+  stroke: gray;
+  shape-rendering: crispEdges;
+}

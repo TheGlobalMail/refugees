@@ -268,6 +268,13 @@ div.destination h2 {
   line-height: 0.8em;
   margin-top: 0;
 }
+div.destination .origin {
+  padding: 2px 5px;
+}
+div.destination .origin:hover {
+  background-color: rgba(240, 240, 240, 0.5);
+  cursor: pointer;
+}
 div.destination .origin h4 {
   line-height: 1em;
   display: inline;
@@ -280,4 +287,7 @@ div.destination .origin .plotDiv .axis line {
   fill: none;
   stroke: gray;
   shape-rendering: crispEdges;
+}
+div.destination .origin .plotDiv .axis text {
+  font: 12px sans-serif;
 }

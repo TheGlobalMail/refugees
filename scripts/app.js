@@ -3,7 +3,7 @@
 
   margin = {
     t: 20,
-    r: 20,
+    r: 30,
     b: 20,
     l: 40
   };
@@ -37,8 +37,9 @@
     yearData = data.years;
     el = d3.select(self);
     removePlot = function() {
-      return el.on('click', function() {
-        return el.select('.plotDiv').remove();
+      el.select('.plotDiv').remove();
+      return el.on('click', function(d) {
+        return makePlot(this, d);
       });
     };
     return (function() {
@@ -72,17 +73,22 @@
           return y(d.applicants);
         }
       });
-      return removePlot();
+      return el.on('click', function() {
+        return removePlot();
+      });
     })();
   };
 
   d3.json('/data/nested.json', function(json) {
-    var countryDivs, countryJoin, originDivs, originJoin;
-    countryJoin = d3.select('#main').selectAll('.destination').data(json, function(d) {
+    var countryDivs, countryJoin, data, originDivs, originJoin;
+    data = json.sort(function(a, b) {
+      return b.total - a.total;
+    });
+    countryJoin = d3.select('#main').selectAll('.destination').data(data, function(d) {
       return d.destination;
     });
     countryDivs = countryJoin.enter().append('div').attr('class', 'destination').html(function(d) {
-      return '<h2>' + d.destination + '</h2>';
+      return '<h2>' + d.destination + '</h2><p>' + d.total + ' total asylum seekers</p>';
     });
     originJoin = countryDivs.selectAll('.origin').data(function(d) {
       return d.origins;

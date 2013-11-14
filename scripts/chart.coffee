@@ -1,4 +1,4 @@
-margin = {t: 20, r: 20, b: 20, l:40}
+margin = {t: 20, r: 30, b: 20, l:40}
 w = 250 - margin.l - margin.r
 h = 140 - margin.t - margin.b
 x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1)
@@ -21,7 +21,8 @@ makePlot = (self, data) ->
   el = d3.select(self)
 
   removePlot = () ->
-    el.on('click', () -> el.select('.plotDiv').remove())
+    el.select('.plotDiv').remove()
+    el.on('click', (d) -> makePlot(this, d))
 
   do ->
     plotDiv = el.append('div').attr('class', 'plotDiv')
@@ -58,17 +59,18 @@ makePlot = (self, data) ->
         x: (d) -> x(d.year)
         y: (d) -> y(d.applicants)  
       })
-
-    removePlot()
+    
+    el.on('click', () -> removePlot())
 
 d3.json '/data/nested.json', (json) ->
+  data = json.sort((a, b) -> b.total - a.total)
 
   countryJoin = d3.select('#main').selectAll('.destination')
-    .data(json, (d) -> d.destination)
+    .data(data, (d) -> d.destination)
   
   countryDivs = countryJoin.enter().append('div')
     .attr('class', 'destination')
-    .html((d) -> '<h2>' + d.destination + '</h2>')
+    .html((d) -> '<h2>' + d.destination + '</h2><p>' + d.total + ' total asylum seekers</p>')
 
   originJoin = countryDivs.selectAll('.origin')
     .data((d) -> d.origins)
@@ -76,9 +78,3 @@ d3.json '/data/nested.json', (json) ->
   originDivs = originJoin.enter().append('div').attr('class', 'origin')
     .on('click', (d) -> makePlot(this, d))
     .html((d) -> '<h4>' + d.origin + '</h4> ' + d.total)
-
-  # yearJoin = originDivs.selectAll('.year')
-  #   .data((d) -> d.years)
-
-  # yearDivs = yearJoin.enter().append('div').attr('clear', 'year')
-

@@ -63,7 +63,8 @@ module.exports = function (grunt) {
       main: {
         files: [
           { src: 'images/*', dest: 'build/' },
-          { src: '*.html', dest: 'build/' }
+          { src: '*.html', dest: 'build/' },
+          { src: 'data/*', dest: 'build/' }
         ]
       }
     }

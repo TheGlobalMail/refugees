@@ -10,6 +10,8 @@
     "bower_components"
   ],
   "dependencies": {
-    "d3": "~3.3.9"
+    "d3": "~3.3.9",
+    "jquery": "~1.10.2",
+    "isotope": "~1.5.25"
   }
 }

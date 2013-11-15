@@ -1,4 +1,12 @@
 @import "tgm.less";
+@import "../bower_components/isotope/css/style.css";
+
+@yellow: rgba(255, 248, 199, 1);
+@green: rgba(199, 255, 200, 1);
+@blue: rgba(199, 255, 252, 1);
+@purple: rgba(205, 199, 255, 1);
+@pink: rgba(255, 199, 225, 1);
+@orange: rgba(255, 219, 199, 1);
 
 // chart-specific things here
 div.destination {
@@ -6,7 +14,7 @@ div.destination {
     line-height: 0.8em;
     margin-top: 0;
   }
-  float: left;
+  // float: left;
   width: 250px;
   margin: 1em 0.5em;
   display: inline-block;
@@ -15,8 +23,18 @@ div.destination {
   // height: 260px;
   .origin {
     padding: 2px 5px;
+    border-bottom: 1px dotted gray;
+    span.origin-name {
+      width: 80%;
+      display: inline-block;
+    }
+    span.origin-num {
+      width: 20%;
+      display: inline-block;
+      text-align: right;
+    }
     &:hover {
-      background-color: rgba(240, 240, 240, 0.5);
+      background-color: lighten(@yellow, 5%);
       cursor: pointer;
     }
     h4 {
@@ -37,7 +55,22 @@ div.destination {
       }
     }
   }
-  .active {
-    background-color: #fff194;
+  .active0 {
+    background-color: @yellow;
+  }
+  .active1 {
+    background-color: @green;
+  }
+  .active2 {
+    background-color: @blue;
+  }
+  .active3 {
+    background-color: @purple;
+  }
+  .active4 {
+    background-color: @pink;
+  }
+  .active5 {
+    background-color: @orange;
   }
 }

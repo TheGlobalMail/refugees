@@ -4,6 +4,9 @@ h = 140 - margin.t - margin.b
 x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1)
 y = d3.scale.linear().range([h, 0])
 formatNum = d3.format(',')
+numActive = 0
+$main = $('#main')
+iso = false
 
 xAxis = d3.svg.axis()
   .orient('bottom')
@@ -16,6 +19,17 @@ yAxis = d3.svg.axis()
   .tickFormat((d, i) -> if i%2 is 0 then d else '')
   .tickSize(3, 0, 0)
   .scale(y)
+
+initIsotope = () ->
+  $main.isotope({
+    itemSelector: '.destination',
+    layoutMode: 'fitRows'
+  })
+
+reIsotope = () ->
+  console.log 'isotopying'
+  iso = true
+  $main.isotope('reLayout')
 
 # transition items in sequentially
 staggerDelay = (d, i) ->
@@ -38,16 +52,24 @@ endAll = (transition, callback) ->
 
 # draw all plots for that country
 drawPlots = () ->
+  numActive++
+  activeClassNum = (numActive % 6).toString()
   dataName = d3.select(this).attr('data-name')
   d3.selectAll('[data-name=' + dataName + ']')
-    .classed('active', true)
+    .classed('active' + activeClassNum, true)
     .each(() -> d3.select(this).call(makePlot))
+
+  reIsotope()
+
 
 # func to un-transition and delete a plot
 removePlots = () ->
+  numActive--
   dataName = d3.select(this).attr('data-name')
+  iso = false
+  
   d3.selectAll('[data-name=' + dataName + ']')
-    .classed('active', false)
+    .attr('class', 'origin')
     .each(() ->
       el = d3.select(this)
       el.selectAll('.plotRect').call(endAll, () ->
@@ -112,20 +134,23 @@ makePlot = (self) ->
 
 # make all the info
 d3.json '/data/nested.json', (json) ->
-  data = json.sort((a, b) -> b.total - a.total)
+  do ->
+    data = json.sort((a, b) -> b.total - a.total)
 
-  countryJoin = d3.select('#main').selectAll('.destination')
-    .data(data, (d) -> d.destination)
-  
-  countryDivs = countryJoin.enter().append('div')
-    .attr('class', 'destination')
-    .html((d) -> '<h2>' + d.destination + '</h2><p>' + formatNum(d.total) + ' people have sought asylum.</p>')
+    countryJoin = d3.select('#main').selectAll('.destination')
+      .data(data, (d) -> d.destination)
+    
+    countryDivs = countryJoin.enter().append('div')
+      .attr('class', 'destination')
+      .html((d) -> '<h2>' + d.destination + '</h2><p>' + formatNum(d.total) + ' people have sought asylum.</p>')
 
-  originJoin = countryDivs.selectAll('.origin')
-    .data((d) -> d.origins)
+    originJoin = countryDivs.selectAll('.origin')
+      .data((d) -> d.origins)
 
-  originDivs = originJoin.enter().append('div')
-    .attr('class', 'origin')
-    .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
-    .on('click', drawPlots)
-    .html((d, i) -> '<h4>#' + (i + 1) + ': ' + d.origin + '</h4> ' + formatNum(d.total))
+    originDivs = originJoin.enter().append('div')
+      .attr('class', 'origin')
+      .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
+      .on('click', drawPlots)
+      .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.total) + '</span>')
+
+  initIsotope()

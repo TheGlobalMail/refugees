@@ -36,18 +36,32 @@ endAll = (transition, callback) ->
     .each(() -> ++n)
     .each('end', () -> if not --n then callback.apply(this.arguments))
 
+# draw all plots for that country
+drawPlots = () ->
+  dataName = d3.select(this).attr('data-name')
+  d3.selectAll('[data-name=' + dataName + ']')
+    .classed('active', true)
+    .each(() -> d3.select(this).call(makePlot))
+
 # func to un-transition and delete a plot
-removePlot = (rects, el) ->
-  rects.call(endAll, () -> el.select('.plotDiv').remove())
-  el.on('click', (d) -> makePlot(this, d))
+removePlots = () ->
+  dataName = d3.select(this).attr('data-name')
+  d3.selectAll('[data-name=' + dataName + ']')
+    .classed('active', false)
+    .each(() ->
+      el = d3.select(this)
+      el.selectAll('.plotRect').call(endAll, () ->
+        el.select('.plotDiv').remove()
+      )
+    )
 
 # func to draw a plot for a given country
-makePlot = (self, data) ->
+makePlot = (self) ->
+  data = self[0][0].__data__
   yearData = data.years
-  el = d3.select(self)
 
   do ->
-    plotDiv = el.append('div').attr('class', 'plotDiv')
+    plotDiv = self.append('div').attr('class', 'plotDiv')
 
     # draw svg and axes
     plotSvg = plotDiv.append('svg')
@@ -93,7 +107,7 @@ makePlot = (self, data) ->
       })
       .style('opacity', 1.0)
     
-    el.on('click', () -> removePlot(plotRects, el))
+    self.on('click', removePlots)
 
 # make all the info
 d3.json '/data/nested.json', (json) ->
@@ -109,6 +123,8 @@ d3.json '/data/nested.json', (json) ->
   originJoin = countryDivs.selectAll('.origin')
     .data((d) -> d.origins)
 
-  originDivs = originJoin.enter().append('div').attr('class', 'origin')
-    .on('click', (d) -> makePlot(this, d))
+  originDivs = originJoin.enter().append('div')
+    .attr('class', 'origin')
+    .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
+    .on('click', drawPlots)
     .html((d) -> '<h4>' + d.origin + '</h4> ' + formatNum(d.total))

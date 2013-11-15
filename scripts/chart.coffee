@@ -16,17 +16,39 @@ yAxis = d3.svg.axis()
   .tickSize(3, 0, 0)
   .scale(y)
 
+# transition items in sequentially
+staggerDelay = (d, i) ->
+  i * 70
+
+endAll = (transition, callback) ->
+  # some bostock magic for waiting till the end of all transitions before callback
+  # https://groups.google.com/forum/#!msg/d3-js/WC_7Xi6VV50/j1HK0vIWI-EJ
+  n = 0
+  transition.transition().duration(staggerDelay)
+    .attr({
+      width: x.rangeBand()
+      height: 0
+      x: (d) -> x(d.year)
+      y: (d) -> h
+    })
+    .style('opacity', 0.2)
+    .each(() -> ++n)
+    .each('end', () -> if not --n then callback.apply(this.arguments))
+
+# func to un-transition and delete a plot
+removePlot = (rects, el) ->
+  rects.call(endAll, () -> el.select('.plotDiv').remove())
+  el.on('click', (d) -> makePlot(this, d))
+
+# func to draw a plot for a given country
 makePlot = (self, data) ->
   yearData = data.years
   el = d3.select(self)
 
-  removePlot = () ->
-    el.select('.plotDiv').remove()
-    el.on('click', (d) -> makePlot(this, d))
-
   do ->
     plotDiv = el.append('div').attr('class', 'plotDiv')
 
+    # draw svg and axes
     plotSvg = plotDiv.append('svg')
       .attr({
         width: w + margin.l + margin.r
@@ -48,6 +70,7 @@ makePlot = (self, data) ->
       .attr('class', 'y axis')
       .call(yAxis)
 
+    # actual meat of the plot, w/ transitions
     plotRectsJoin = plotSvg.selectAll('.plotRect')
       .data(yearData)
 
@@ -55,13 +78,23 @@ makePlot = (self, data) ->
       .attr({
         class: 'plotRect'
         width: x.rangeBand()
+        height: 0
+        x: (d) -> x(d.year)
+        y: (d) -> h
+      })
+      .style('opacity', 0.2)
+
+    plotRects.transition().duration(400).delay(staggerDelay)
+      .attr({
         height: (d) -> h - y(d.applicants)
         x: (d) -> x(d.year)
         y: (d) -> y(d.applicants)  
       })
+      .style('opacity', 1.0)
     
-    el.on('click', () -> removePlot())
+    el.on('click', () -> removePlot(plotRects, el))
 
+# make all the info
 d3.json '/data/nested.json', (json) ->
   data = json.sort((a, b) -> b.total - a.total)
 
@@ -70,7 +103,7 @@ d3.json '/data/nested.json', (json) ->
   
   countryDivs = countryJoin.enter().append('div')
     .attr('class', 'destination')
-    .html((d) -> '<h2>' + d.destination + '</h2><p>' + d.total + ' total asylum seekers</p>')
+    .html((d) -> '<h2>' + d.destination + '</h2><p>' + d.total + ' people have sought asylum.</p>')
 
   originJoin = countryDivs.selectAll('.origin')
     .data((d) -> d.origins)

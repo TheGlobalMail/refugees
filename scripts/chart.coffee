@@ -52,6 +52,7 @@ removePlots = () ->
       el = d3.select(this)
       el.selectAll('.plotRect').call(endAll, () ->
         el.select('.plotDiv').remove()
+        el.on('click', drawPlots)
       )
     )
 
@@ -127,4 +128,4 @@ d3.json '/data/nested.json', (json) ->
     .attr('class', 'origin')
     .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
     .on('click', drawPlots)
-    .html((d) -> '<h4>' + d.origin + '</h4> ' + formatNum(d.total))
+    .html((d, i) -> '<h4>#' + (i + 1) + ': ' + d.origin + '</h4> ' + formatNum(d.total))

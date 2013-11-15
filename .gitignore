@@ -1,6 +1,6 @@
 build/
 scripts/app.js
-style/main.css
+styles/main.css
 data/.ipynb_checkpoints
 node_modules/
 bower_components/

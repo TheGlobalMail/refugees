@@ -3,6 +3,7 @@ w = 250 - margin.l - margin.r
 h = 140 - margin.t - margin.b
 x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1)
 y = d3.scale.linear().range([h, 0])
+formatNum = d3.format(',')
 
 xAxis = d3.svg.axis()
   .orient('bottom')
@@ -103,11 +104,11 @@ d3.json '/data/nested.json', (json) ->
   
   countryDivs = countryJoin.enter().append('div')
     .attr('class', 'destination')
-    .html((d) -> '<h2>' + d.destination + '</h2><p>' + d.total + ' people have sought asylum.</p>')
+    .html((d) -> '<h2>' + d.destination + '</h2><p>' + formatNum(d.total) + ' people have sought asylum.</p>')
 
   originJoin = countryDivs.selectAll('.origin')
     .data((d) -> d.origins)
 
   originDivs = originJoin.enter().append('div').attr('class', 'origin')
     .on('click', (d) -> makePlot(this, d))
-    .html((d) -> '<h4>' + d.origin + '</h4> ' + d.total)
+    .html((d) -> '<h4>' + d.origin + '</h4> ' + formatNum(d.total))

@@ -37,10 +37,11 @@ revealPlots = () ->
   $selection = $('div[data-name=' + dataName + ']')
 
   $selection.addClass('active' + activeClassNum)
-  $selection.find('.plotDiv').slideDown(800)
+  $selection.find('.plotDiv').slideDown()
+
   $(":animated").promise().done(() ->
-    $selection.on('click', hidePlots)
     reIsotope()
+    $selection.unbind('click').click(hidePlots)
   )
   
 # func to un-transition and delete a plot
@@ -48,11 +49,12 @@ hidePlots = () ->
   dataName = $(this).attr('data-name')
   $selection = $('[data-name=' + dataName + ']')
 
-  $selection.attr('class', 'origin')
-  $selection.find('.plotDiv').slideUp(800)
+  $selection.find('.plotDiv').slideUp()
+
   $(":animated").promise().done(() ->
-    $selection.on('click', revealPlots)
+    $selection.attr('class', 'origin')
     reIsotope()
+    $selection.unbind('click').click(revealPlots)
   )
 
 
@@ -61,65 +63,54 @@ makePlot = (self) ->
   data = self[0][0].__data__
   yearData = data.years
 
-  do ->
-    plotDiv = self.append('div').attr('class', 'plotDiv')
+  plotDiv = self.append('div').attr('class', 'plotDiv')
 
-    # draw svg and axes
-    plotSvg = plotDiv.append('svg')
-      .attr({
-        width: w + margin.l + margin.r
-        height: h + margin.t + margin.b
-      })
-    .append('g')
-      .attr('class', 'plotG')
-      .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
+  # draw svg and axes
+  plotSvg = plotDiv.append('svg')
+    .attr({
+      width: w + margin.l + margin.r
+      height: h + margin.t + margin.b
+    })
+  .append('g')
+    .attr('class', 'plotG')
+    .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
 
-    x.domain(yearData.map (d) -> d.year)
-    y.domain([0, d3.max(yearData, (d) -> d.applicants)])
+  x.domain(yearData.map (d) -> d.year)
+  y.domain([0, d3.max(yearData, (d) -> d.applicants)])
 
-    plotSvg.append('g')
-      .attr('class', 'x axis')
-      .attr('transform', 'translate(' + [0, h] + ')')
-      .call(xAxis)
+  plotSvg.append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(' + [0, h] + ')')
+    .call(xAxis)
 
-    plotSvg.append('g')
-      .attr('class', 'y axis')
-      .call(yAxis)
+  plotSvg.append('g')
+    .attr('class', 'y axis')
+    .call(yAxis)
 
-    # actual meat of the plot, w/ transitions
-    plotRectsJoin = plotSvg.selectAll('.plotRect')
-      .data(yearData)
+  # actual meat of the plot, w/ transitions
+  plotRectsJoin = plotSvg.selectAll('.plotRect')
+    .data(yearData)
 
-    plotRects = plotRectsJoin.enter().append('rect')
-      .attr({
-        class: 'plotRect'
-        width: x.rangeBand()
-        height: (d) -> h - y(d.applicants)
-        x: (d) -> x(d.year)
-        y: (d) -> y(d.applicants)  
-      })
-      .style('opacity', 0.8)
-
-    # plotRects.transition().duration(400).delay(300)
-    #   .attr({
-    #     height: (d) -> h - y(d.applicants)
-    #     x: (d) -> x(d.year)
-    #     y: (d) -> y(d.applicants)  
-    #   })
-    #   .style('opacity', 1.0)
-
+  plotRects = plotRectsJoin.enter().append('rect')
+    .attr({
+      class: 'plotRect'
+      width: x.rangeBand()
+      height: (d) -> h - y(d.applicants)
+      x: (d) -> x(d.year)
+      y: (d) -> y(d.applicants)  
+    })
 
 # make all the info
 d3.json '/data/nested.json', (json) ->
   do ->
-    data = json.sort((a, b) -> b.total - a.total)
+    data = json.sort((a, b) -> b.applicants - a.applicants)
 
     countryJoin = d3.select('#main').selectAll('.destination')
       .data(data, (d) -> d.destination)
     
     countryDivs = countryJoin.enter().append('div')
       .attr('class', 'destination')
-      .html((d) -> '<h2>' + d.destination + '</h2><p>' + formatNum(d.total) + ' people have sought asylum.</p>')
+      .html((d) -> '<h2>' + d.destination + '</h2><p>' + formatNum(d.applicants) + ' people have sought asylum. That\'s ' + d3.round(d.per1k, 2) + ' asylum seekers for every 1,000 people.</p>')
 
     originJoin = countryDivs.selectAll('.origin')
       .data((d) -> d.origins)
@@ -128,7 +119,7 @@ d3.json '/data/nested.json', (json) ->
       .attr('class', 'origin')
       .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
       .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.total) + '</span>')
-      .on('click', revealPlots)
       .each(() -> d3.select(this).call(makePlot))
 
+  $('.origin').on('click', revealPlots)
   initIsotope()

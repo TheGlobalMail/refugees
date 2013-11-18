@@ -6,7 +6,6 @@ y = d3.scale.linear().range([h, 0])
 formatNum = d3.format(',')
 numActive = 0
 $main = $('#main')
-iso = false
 
 xAxis = d3.svg.axis()
   .orient('bottom')
@@ -28,7 +27,6 @@ initIsotope = () ->
 
 reIsotope = () ->
   console.log 'isotopying'
-  iso = true
   $main.isotope('reLayout')
 
 # transition items in sequentially
@@ -39,16 +37,8 @@ endAll = (transition, callback) ->
   # some bostock magic for waiting till the end of all transitions before callback
   # https://groups.google.com/forum/#!msg/d3-js/WC_7Xi6VV50/j1HK0vIWI-EJ
   n = 0
-  transition.transition().duration(staggerDelay)
-    .attr({
-      width: x.rangeBand()
-      height: 0
-      x: (d) -> x(d.year)
-      y: (d) -> h
-    })
-    .style('opacity', 0.2)
-    .each(() -> ++n)
-    .each('end', () -> if not --n then callback.apply(this.arguments))
+  ++n
+  if not --n then callback.apply(this.arguments)
 
 # draw all plots for that country
 drawPlots = () ->
@@ -59,24 +49,37 @@ drawPlots = () ->
     .classed('active' + activeClassNum, true)
     .each(() -> d3.select(this).call(makePlot))
 
-  reIsotope()
+  $('.plotDiv').slideDown()
+  $(":animated").promise().done(() -> reIsotope())
 
+removePlot = () ->
+  el = this
+  el.selectAll('.plotRect').transition()
+    .attr({
+      width: x.rangeBand()
+      height: 0
+      y: (d) -> h
+    })
+    .style('opacity', 0.2)
+    .each('end', () ->
+      el.select('.plotDiv').remove()
+      el.on('click', drawPlots)
+    )
 
 # func to un-transition and delete a plot
 removePlots = () ->
   numActive--
   dataName = d3.select(this).attr('data-name')
-  iso = false
+  selection = d3.selectAll('[data-name=' + dataName + ']')
   
-  d3.selectAll('[data-name=' + dataName + ']')
+  selection
     .attr('class', 'origin')
     .each(() ->
-      el = d3.select(this)
-      el.selectAll('.plotRect').call(endAll, () ->
-        el.select('.plotDiv').remove()
-        el.on('click', drawPlots)
-      )
+      d3.select(this).call(removePlot)
     )
+
+  $('.plotDiv').slideUp()
+  $(":animated").promise().done(() -> reIsotope())
 
 # func to draw a plot for a given country
 makePlot = (self) ->
@@ -95,6 +98,7 @@ makePlot = (self) ->
     .append('g')
       .attr('class', 'plotG')
       .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
+
 
     x.domain(yearData.map (d) -> d.year)
     y.domain([0, d3.max(yearData, (d) -> d.applicants)])
@@ -122,14 +126,14 @@ makePlot = (self) ->
       })
       .style('opacity', 0.2)
 
-    plotRects.transition().duration(400).delay(staggerDelay)
+    plotRects.transition().duration(400).delay(300)
       .attr({
         height: (d) -> h - y(d.applicants)
         x: (d) -> x(d.year)
         y: (d) -> y(d.applicants)  
       })
       .style('opacity', 1.0)
-    
+
     self.on('click', removePlots)
 
 # make all the info

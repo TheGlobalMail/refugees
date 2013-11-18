@@ -76,7 +76,7 @@ makePlot = (self) ->
     .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
 
   x.domain(yearData.map (d) -> d.year)
-  y.domain([0, d3.max(yearData, (d) -> d.applicants)])
+  y.domain([0, d3.max(yearData, (d) -> Math.max(0.5, d.applicantsPer1k))])
 
   plotSvg.append('g')
     .attr('class', 'x axis')
@@ -95,9 +95,9 @@ makePlot = (self) ->
     .attr({
       class: 'plotRect'
       width: x.rangeBand()
-      height: (d) -> h - y(d.applicants)
+      height: (d) -> h - y(d.applicantsPer1k)
       x: (d) -> x(d.year)
-      y: (d) -> y(d.applicants)  
+      y: (d) -> y(d.applicantsPer1k)  
     })
 
 # make all the info
@@ -118,7 +118,7 @@ d3.json '/data/nested.json', (json) ->
     originDivs = originJoin.enter().append('div')
       .attr('class', 'origin')
       .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
-      .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.total) + '</span>')
+      .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
       .each(() -> d3.select(this).call(makePlot))
 
   $('.origin').on('click', revealPlots)

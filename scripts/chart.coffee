@@ -26,60 +26,35 @@ initIsotope = () ->
   })
 
 reIsotope = () ->
-  console.log 'isotopying'
   $main.isotope('reLayout')
 
-# transition items in sequentially
-staggerDelay = (d, i) ->
-  i * 70
-
-endAll = (transition, callback) ->
-  # some bostock magic for waiting till the end of all transitions before callback
-  # https://groups.google.com/forum/#!msg/d3-js/WC_7Xi6VV50/j1HK0vIWI-EJ
-  n = 0
-  ++n
-  if not --n then callback.apply(this.arguments)
 
 # draw all plots for that country
-drawPlots = () ->
+revealPlots = () ->
   numActive++
   activeClassNum = (numActive % 6).toString()
-  dataName = d3.select(this).attr('data-name')
-  d3.selectAll('[data-name=' + dataName + ']')
-    .classed('active' + activeClassNum, true)
-    .each(() -> d3.select(this).call(makePlot))
+  dataName = $(this).attr('data-name')
+  $selection = $('div[data-name=' + dataName + ']')
 
-  $('.plotDiv').slideDown()
-  $(":animated").promise().done(() -> reIsotope())
-
-removePlot = () ->
-  el = this
-  el.selectAll('.plotRect').transition()
-    .attr({
-      width: x.rangeBand()
-      height: 0
-      y: (d) -> h
-    })
-    .style('opacity', 0.2)
-    .each('end', () ->
-      el.select('.plotDiv').remove()
-      el.on('click', drawPlots)
-    )
-
-# func to un-transition and delete a plot
-removePlots = () ->
-  numActive--
-  dataName = d3.select(this).attr('data-name')
-  selection = d3.selectAll('[data-name=' + dataName + ']')
+  $selection.addClass('active' + activeClassNum)
+  $selection.find('.plotDiv').slideDown(800)
+  $(":animated").promise().done(() ->
+    $selection.on('click', hidePlots)
+    reIsotope()
+  )
   
-  selection
-    .attr('class', 'origin')
-    .each(() ->
-      d3.select(this).call(removePlot)
-    )
+# func to un-transition and delete a plot
+hidePlots = () ->
+  dataName = $(this).attr('data-name')
+  $selection = $('[data-name=' + dataName + ']')
 
-  $('.plotDiv').slideUp()
-  $(":animated").promise().done(() -> reIsotope())
+  $selection.attr('class', 'origin')
+  $selection.find('.plotDiv').slideUp(800)
+  $(":animated").promise().done(() ->
+    $selection.on('click', revealPlots)
+    reIsotope()
+  )
+
 
 # func to draw a plot for a given country
 makePlot = (self) ->
@@ -98,7 +73,6 @@ makePlot = (self) ->
     .append('g')
       .attr('class', 'plotG')
       .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
-
 
     x.domain(yearData.map (d) -> d.year)
     y.domain([0, d3.max(yearData, (d) -> d.applicants)])
@@ -120,21 +94,20 @@ makePlot = (self) ->
       .attr({
         class: 'plotRect'
         width: x.rangeBand()
-        height: 0
-        x: (d) -> x(d.year)
-        y: (d) -> h
-      })
-      .style('opacity', 0.2)
-
-    plotRects.transition().duration(400).delay(300)
-      .attr({
         height: (d) -> h - y(d.applicants)
         x: (d) -> x(d.year)
         y: (d) -> y(d.applicants)  
       })
-      .style('opacity', 1.0)
+      .style('opacity', 0.8)
 
-    self.on('click', removePlots)
+    # plotRects.transition().duration(400).delay(300)
+    #   .attr({
+    #     height: (d) -> h - y(d.applicants)
+    #     x: (d) -> x(d.year)
+    #     y: (d) -> y(d.applicants)  
+    #   })
+    #   .style('opacity', 1.0)
+
 
 # make all the info
 d3.json '/data/nested.json', (json) ->
@@ -154,7 +127,8 @@ d3.json '/data/nested.json', (json) ->
     originDivs = originJoin.enter().append('div')
       .attr('class', 'origin')
       .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
-      .on('click', drawPlots)
       .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.total) + '</span>')
+      .on('click', revealPlots)
+      .each(() -> d3.select(this).call(makePlot))
 
   initIsotope()

@@ -25,6 +25,12 @@ initIsotope = () ->
     layoutMode: 'fitRows'
   })
 
+$('.filter a').click(() ->
+  $selector = $(this).attr('data-filter')
+  console.log $selector
+  $main.isotope({ filter: $selector })
+)
+
 reIsotope = (el) ->
   $main.isotope('reLayout', () -> $('html, body').animate({
       scrollTop: el.parent().offset().top - 40
@@ -111,7 +117,9 @@ d3.json '/data/nested.json', (json) ->
       .data(data, (d) -> d.destination)
     
     countryDivs = countryJoin.enter().append('div')
-      .attr('class', 'destination')
+      .attr('class', (d) -> 'destination ' + d.region.replace(/(\s|\(|\))/g, '') + ' ' + d.continent.replace(/(\s|\(|\))/g, ''))
+      # .attr('data-region', (d) -> d.region.replace(/(\s|\(|\))/g, ''))
+      # .attr('data-continent', (d) -> d.continent.replace(/(\s|\(|\))/g, ''))
       .html((d) -> '<h2>' + d.destination + '</h2><p>' + formatNum(d.applicants) + ' people have sought asylum. That\'s ' + d3.round(d.per1k, 2) + ' asylum seekers for every 1,000 people.</p>')
 
     originJoin = countryDivs.selectAll('.origin')
@@ -119,7 +127,7 @@ d3.json '/data/nested.json', (json) ->
 
     originDivs = originJoin.enter().append('div')
       .attr('class', 'origin')
-      .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g))
+      .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g, ''))
       .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
       .each(() -> d3.select(this).call(makePlot))
 

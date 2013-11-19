@@ -8,24 +8,34 @@
   </head>
 
   <body>
-    <h3>Filter</h3>
-    <ul class="filter" id="continents">
-        <li><a href="#" data-filter="*">show all</a></li>
-        <li><a href="#" data-filter=".Europe">Europe</a></li>
-        <li><a href="#" data-filter=".Africa">Africa</a></li>
-        <li><a href="#" data-filter=".NorthernAmerica">North America</a></li>
-        <li><a href="#" data-filter=".SouthAmerica">South America</a></li>
-        <li><a href="#" data-filter=".Asia">Asia</a></li>
-        <li><a href="#" data-filter=".Oceania">Oceania</a></li>
-    </ul>
-    <h3>Sort</h3>
-    <ul class="sort" id="sorter">
-        <li><a href="#name">Name</a></li>
-        <li><a href="#applicants">Applicants</a></li>
-        <li><a href="#per1k">Per 1,000 people</a></li>
-        <li><a href="#population">Population</a></li>
-    </ul>
+    
     <div id="main" role="main">
+        <div class="isotope-list-wrapper">
+            <div class="isotope-list">
+                <div class="isotope-list-title"><h3>Filter</h3></div>
+                <ul class="isotope-ul" id="isotope-filters">
+                    <div class="isotope-filter-div active"><li><a href="#" data-filter="*">Show all</a></li></div>
+                    <div class="isotope-filter-div"><li><a href="#" data-filter=".Africa">Africa</a></li></div>
+                    <div class="isotope-filter-div"><li><a href="#" data-filter=".Asia">Asia</a></li></div>
+                    <div class="isotope-filter-div"><li><a href="#" data-filter=".Europe">Europe</a></li></div>
+                    <div class="isotope-filter-div"><li><a href="#" data-filter=".Oceania">Oceania</a></li></div>
+                    <div class="isotope-filter-div"><li><a href="#" data-filter=".NorthernAmerica">North America</a></li></div>
+                    <div class="isotope-filter-div"><li><a href="#" data-filter=".SouthAmerica">South America</a></li></div>
+                </ul>
+            </div>
+            <div class="isotope-list">
+                <div class="isotope-list-title"><h3>Sort</h3></div>
+                <ul class="isotope-ul" id="isotope-sorters">
+                    <div class="isotope-sorter-div active"><li><a href="#name">Name</a></li></div>
+                    <div class="isotope-sorter-div"><li><a href="#applicants">Applicants</a></li></div>
+                    <div class="isotope-sorter-div"><li><a href="#per1k">Per 1,000 people</a></li></div>
+                    <div class="isotope-sorter-div"><li><a href="#population">Population</a></li></div>
+                </ul>
+            </div>
+        </div>
+        <div id="isotope-content">
+            
+        </div>
     </div>
 
     <!-- paths to library scripts go here -->

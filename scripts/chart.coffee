@@ -5,7 +5,7 @@ x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1)
 y = d3.scale.linear().range([h, 0])
 formatNum = d3.format(',')
 numActive = 0
-$main = $('#main')
+$isotope = $('#isotope-content')
 
 xAxis = d3.svg.axis()
   .orient('bottom')
@@ -20,7 +20,7 @@ yAxis = d3.svg.axis()
   .scale(y)
 
 initIsotope = () ->
-  $main.isotope({
+  $isotope.isotope({
     itemSelector: '.destination',
     layoutMode: 'fitRows',
     getSortData: {
@@ -35,23 +35,30 @@ initIsotope = () ->
     }
   })
 
-$('.filter a').click(() ->
-  $selector = $(this).attr('data-filter')
+$('.isotope-filter-div').click(() ->
+  $('.isotope-filter-div').removeClass('active')
+  $(this).addClass('active')
+  $selector = $(this).find('a').attr('data-filter')
   console.log $selector
-  $main.isotope({ filter: $selector })
+  $isotope.isotope({ filter: $selector })
 )
 
-$('.sort a').click(() ->
-  sorter = $(this).attr('href').slice(1)
+$('.isotope-sorter-div').click(() ->
+  $('.isotope-sorter-div').removeClass('active')
+  $(this).addClass('active')
+  sorter = $(this).find('a').attr('href').slice(1)
   ascending = if sorter is 'name' then true else false
-  $main.isotope({ sortBy: sorter, sortAscending: ascending })
+  $isotope.isotope({ sortBy: sorter, sortAscending: ascending })
   false
 )
 
 reIsotope = (el) ->
-  $main.isotope('reLayout', () -> $('html, body').animate({
-      scrollTop: el.parent().offset().top - 40
-    }, 700))
+  origOffset = el.parent().offset().top
+  $isotope.isotope('reLayout', () -> 
+    if Math.abs(el.parent().offset().top - origOffset) > (window.innerHeight * 2/3)
+      $('html, body').animate({
+        scrollTop: el.parent().offset().top - 40
+      }, 700))
 
 # draw all plots for that country
 revealPlots = () ->
@@ -128,9 +135,9 @@ makePlot = (self) ->
 # make all the info
 d3.json '/data/nested.json', (json) ->
   do ->
-    data = json.sort((a, b) -> b.applicants - a.applicants)
+    data = json.sort((a, b) -> b.destination - a.destination)
 
-    countryJoin = d3.select('#main').selectAll('.destination')
+    countryJoin = d3.select('#isotope-content').selectAll('.destination')
       .data(data, (d) -> d.destination)
     
     countryDivs = countryJoin.enter().append('div')

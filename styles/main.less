@@ -1,90 +1,162 @@
 @import "tgm.less";
 @import "../bower_components/isotope/css/style.css";
 
-@yellow: rgba(255, 248, 199, 1);
-@green: rgba(199, 255, 200, 1);
-@blue: rgba(199, 255, 252, 1);
-@purple: rgba(205, 199, 255, 1);
-@pink: rgba(255, 199, 225, 1);
-@orange: rgba(255, 219, 199, 1);
+@yellow: rgba(255, 248, 199, 0.65);
+@green: rgba(199, 255, 200, 0.65);
+@blue: rgba(199, 255, 252, 0.65);
+@purple: rgba(205, 199, 255, 0.65);
+@pink: rgba(255, 199, 225, 0.65);
+@orange: rgba(255, 219, 199, 0.65);
+@lightGray: #ccc;
+
+#main {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+.isotope-list-wrapper {
+  width: 20%;
+  position: fixed;
+  top: 10;
+  left: 10;
+  .isotope-list {
+    margin: 20px 15px 50px 15px;
+    .isotope-list-title {
+      border-bottom: 5px solid @lightGray;
+      h3 {
+        font-size: 1.5em;
+        margin: 2px 0px;
+        display: inline-block;
+      }
+    }
+    .isotope-ul {
+      list-style-type: none;
+      margin: 10px 0 0 0;
+      padding: 0;
+      div {
+        -webkit-box-shadow: 0px 0px 1px rgba(100, 100, 100, 0.45);
+        -moz-box-shadow:    0px 0px 1px rgba(100, 100, 100, 0.45);
+        box-shadow:         0px 0px 1px rgba(100, 100, 100, 0.45);
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        display: inline-block;
+        padding: 3px 10px;
+        margin: 2px 1px;
+        background-color: white;
+        cursor: pointer;
+        &:hover {
+          background-color: darken(white, 10%);
+        }
+        li {
+          display: inline-block;
+          a {
+            color: #168dc0;
+            text-decoration: none;
+          }
+          a:active {
+            background: none;
+          }
+        }
+      }
+      .active {
+        background-color: darken(white, 15%);
+      }
+    }
+  }
+}
 
 // chart-specific things here
-div.destination {
-  h2 {
-    line-height: 0.8em;
-    margin-top: 0;
-  }
-  // float: left;
-  width: 250px;
-  margin: 1em 0.5em;
-  display: inline-block;
-  padding: 15px 20px;
-  background-color: white;
-  // height: 260px;
-  .origin {
-    padding: 2px 5px;
-    border-bottom: 1px dotted gray;
-    span.origin-name {
-      width: 80%;
-      display: inline-block;
+div#isotope-content {
+  width: 80%;
+  float: right;
+  div.destination {
+    border-top: 10px solid @lightGray;
+    h2 {
+      line-height: 0.9em;
+      min-height: 40px;
+      margin-top: 6px;
     }
-    span.origin-num {
-      width: 20%;
-      display: inline-block;
-      text-align: right;
+    h3 {
+      text-align: center;
     }
-    &:hover {
-      background-color: lighten(@yellow, 5%);
-      cursor: pointer;
-    }
-    h4 {
-      line-height: 1em;
-      display: inline;
-    }
-    .plotDiv {
-      margin: 6px 0;
-      display: none;
-      .axis {
-        path, line {
-          fill: none;
-          stroke: gray;
+    width: 250px;
+    margin: 1em 0.5em;
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: white;
+    .origin {
+      padding: 3px 5px;
+      border-bottom: 1px dotted gray;
+      span.origin-name {
+        width: 80%;
+        display: inline-block;
+      }
+      span.origin-num {
+        width: 20%;
+        display: inline-block;
+        text-align: right;
+      }
+      &:hover {
+        background-color: lighten(@yellow, 5%);
+        cursor: pointer;
+      }
+      h4 {
+        line-height: 1em;
+        display: inline;
+      }
+      .plotDiv {
+        margin: 6px 0;
+        display: none;
+        .axis {
+          path, line {
+            fill: none;
+            stroke: gray;
+            shape-rendering: crispEdges;
+          }
+          text {
+            font: 12px sans-serif;
+          }
+        }
+        .plotRect {
           shape-rendering: crispEdges;
+          opacity: 0.7; 
         }
-        text {
-          font: 12px sans-serif;
-        }
-      }
-      .plotRect {
-        shape-rendering: crispEdges;
-        opacity: 0.7; 
       }
     }
+    .active0 {
+      background-color: @yellow;
+      &:hover { background-color: lighten(@yellow, 5%); }
+    }
+    .active1 {
+      background-color: @green;
+      &:hover { background-color: lighten(@green, 5%); }
+    }
+    .active2 {
+      background-color: @blue;
+      &:hover { background-color: lighten(@blue, 5%); }
+    }
+    .active3 {
+      background-color: @purple;
+      &:hover { background-color: lighten(@purple, 5%); }
+    }
+    .active4 {
+      background-color: @pink;
+      &:hover { background-color: lighten(@pink, 5%); }
+    }
+    .active5 {
+      background-color: @orange;
+      &:hover { background-color: lighten(@orange, 5%); }
+    }
   }
-  .active0 {
-    background-color: @yellow;
-  }
-  .active1 {
-    background-color: @green;
-  }
-  .active2 {
-    background-color: @blue;
-  }
-  .active3 {
-    background-color: @purple;
-  }
-  .active4 {
-    background-color: @pink;
-  }
-  .active5 {
-    background-color: @orange;
-  }
-}
 
-.isotope-item {
-  z-index: 2;
-}
+  .isotope-item {
+    z-index: 2;
+  }
 
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
+  .isotope-hidden.isotope-item {
+    pointer-events: none;
+    z-index: 1;
+  }
 }

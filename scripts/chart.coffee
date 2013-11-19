@@ -22,13 +22,30 @@ yAxis = d3.svg.axis()
 initIsotope = () ->
   $main.isotope({
     itemSelector: '.destination',
-    layoutMode: 'fitRows'
+    layoutMode: 'fitRows',
+    getSortData: {
+      applicants: ($el) ->
+        $el[0].__data__.applicants
+      name: ($el) ->
+        $el[0].__data__.destination
+      per1k: ($el) ->
+        $el[0].__data__.per1k
+      population: ($el) ->
+        $el[0].__data__.population
+    }
   })
 
 $('.filter a').click(() ->
   $selector = $(this).attr('data-filter')
   console.log $selector
   $main.isotope({ filter: $selector })
+)
+
+$('.sort a').click(() ->
+  sorter = $(this).attr('href').slice(1)
+  ascending = if sorter is 'name' then true else false
+  $main.isotope({ sortBy: sorter, sortAscending: ascending })
+  false
 )
 
 reIsotope = (el) ->
@@ -132,4 +149,5 @@ d3.json '/data/nested.json', (json) ->
       .each(() -> d3.select(this).call(makePlot))
 
   $('.origin').on('click', revealPlots)
+
   initIsotope()

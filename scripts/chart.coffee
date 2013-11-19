@@ -25,44 +25,40 @@ initIsotope = () ->
     layoutMode: 'fitRows'
   })
 
-reIsotope = (callback) ->
-  $main.isotope('reLayout', callback)
-
+reIsotope = (el) ->
+  $main.isotope('reLayout', () -> $('html, body').animate({
+      scrollTop: el.parent().offset().top - 40
+    }, 700))
 
 # draw all plots for that country
 revealPlots = () ->
   numActive++
   $self = $(this)
-  origOffset = $self.offset().top - $(document).scrollTop()
-  console.log origOffset
-
+  dataName = $self.attr('data-name')
   activeClassNum = (numActive % 6).toString()
-  dataName = $(this).attr('data-name')
   $selection = $('div[data-name=' + dataName + ']')
 
   $selection.addClass('active' + activeClassNum)
   $selection.find('.plotDiv').slideDown()
 
   $(":animated").promise().done(() ->
-    reIsotope(() -> $('html, body').animate({
-      scrollTop: $self.offset().top - 100
-    }, 700))
+    reIsotope($self)
     $selection.unbind('click').click(hidePlots)
   )
   
 # func to un-transition and delete a plot
 hidePlots = () ->
-  dataName = $(this).attr('data-name')
+  $self = $(this)
+  dataName = $self.attr('data-name')
   $selection = $('[data-name=' + dataName + ']')
 
   $selection.find('.plotDiv').slideUp()
 
   $(":animated").promise().done(() ->
     $selection.attr('class', 'origin')
-    reIsotope()
+    reIsotope($self)
     $selection.unbind('click').click(revealPlots)
   )
-
 
 # func to draw a plot for a given country
 makePlot = (self) ->

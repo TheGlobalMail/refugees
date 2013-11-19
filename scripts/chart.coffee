@@ -25,13 +25,17 @@ initIsotope = () ->
     layoutMode: 'fitRows'
   })
 
-reIsotope = () ->
-  $main.isotope('reLayout')
+reIsotope = (callback) ->
+  $main.isotope('reLayout', callback)
 
 
 # draw all plots for that country
 revealPlots = () ->
   numActive++
+  $self = $(this)
+  origOffset = $self.offset().top - $(document).scrollTop()
+  console.log origOffset
+
   activeClassNum = (numActive % 6).toString()
   dataName = $(this).attr('data-name')
   $selection = $('div[data-name=' + dataName + ']')
@@ -40,7 +44,9 @@ revealPlots = () ->
   $selection.find('.plotDiv').slideDown()
 
   $(":animated").promise().done(() ->
-    reIsotope()
+    reIsotope(() -> $('html, body').animate({
+      scrollTop: $self.offset().top - 100
+    }, 700))
     $selection.unbind('click').click(hidePlots)
   )
   

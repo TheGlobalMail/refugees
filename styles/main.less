@@ -93,43 +93,22 @@ div#isotope-content {
     display: inline-block;
     padding: 15px 20px;
     background-color: white;
-    .origin {
-      padding: 3px 5px;
-      border-bottom: 1px dotted gray;
-      span.origin-name {
-        width: 80%;
-        display: inline-block;
-      }
-      span.origin-num {
-        width: 20%;
-        display: inline-block;
-        text-align: right;
-      }
-      &:hover {
-        background-color: lighten(@yellow, 5%);
-        cursor: pointer;
-      }
-      h4 {
-        line-height: 1em;
-        display: inline;
-      }
-      .plotDiv {
-        margin: 6px 0;
-        display: none;
-        .axis {
-          path, line {
-            fill: none;
-            stroke: gray;
-            shape-rendering: crispEdges;
-          }
-          text {
-            font: 12px sans-serif;
-          }
-        }
-        .plotRect {
+    .plotDiv {
+      margin: 6px 0;
+      display: none;
+      .axis {
+        path, line {
+          fill: none;
+          stroke: gray;
           shape-rendering: crispEdges;
-          opacity: 0.7; 
         }
+        text {
+          font: 12px sans-serif;
+        }
+      }
+      .plotRect {
+        shape-rendering: crispEdges;
+        opacity: 0.7; 
       }
     }
   }
@@ -180,4 +159,25 @@ a.SouthAmerica {color: @tgmPink; }
 .isotope-hidden.isotope-item {
   pointer-events: none;
   z-index: 1;
+}
+.origin {
+  padding: 3px 5px;
+  border-bottom: 1px dotted gray;
+  span.origin-name {
+    width: 80%;
+    display: inline-block;
+  }
+  span.origin-num {
+    width: 20%;
+    display: inline-block;
+    text-align: right;
+  }
+  &:hover {
+    background-color: lighten(@yellow, 5%);
+    cursor: pointer;
+  }
+  h4 {
+    line-height: 1em;
+    display: inline;
+  }
 }

@@ -85,7 +85,9 @@ hidePlots = () ->
   $selection.find('.plotDiv').slideUp()
 
   $(":animated").promise().done(() ->
-    $selection.attr('class', 'origin')
+    $selection.removeClass (i, css) -> 
+      css.match(/active\d/g, '')[0]
+      
     reIsotope($self)
     $selection.unbind('click').click(revealPlots)
   )
@@ -155,6 +157,6 @@ d3.json '/data/nested.json', (json) ->
       .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
       .each(() -> d3.select(this).call(makePlot))
 
-  $('.origin').on('click', revealPlots)
+  $('.origin, .origin-div').on('click', revealPlots)
 
   initIsotope()

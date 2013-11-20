@@ -18,50 +18,53 @@
 .isotope-list-wrapper {
   width: 20%;
   position: fixed;
-  top: 10;
-  left: 10;
-  .isotope-list {
-    margin: 20px 15px 50px 15px;
-    .isotope-list-title {
-      border-bottom: 5px solid @lightGray;
-      h3 {
-        font-size: 1.5em;
-        margin: 2px 0px;
-        display: inline-block;
-      }
-    }
-    .isotope-ul {
-      list-style-type: none;
-      margin: 10px 0 0 0;
-      padding: 0;
-      div {
-        -webkit-box-shadow: 0px 0px 1px rgba(100, 100, 100, 0.45);
-        -moz-box-shadow:    0px 0px 1px rgba(100, 100, 100, 0.45);
-        box-shadow:         0px 0px 1px rgba(100, 100, 100, 0.45);
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-        display: inline-block;
-        padding: 3px 10px;
-        margin: 2px 1px;
-        background-color: white;
-        cursor: pointer;
-        &:hover {
-          background-color: darken(white, 10%);
-        }
-        li {
+  // top: 20px;
+  // left: 20px;
+  .isotope-list-fixed {
+    // position: fixed;
+    .isotope-list {
+      margin: 20px 15px 50px 15px;
+      .isotope-list-title {
+        border-bottom: 5px solid @lightGray;
+        h3 {
+          font-size: 1.5em;
+          margin: 2px 0px;
           display: inline-block;
-          a {
-            color: #168dc0;
-            text-decoration: none;
-          }
-          a:active {
-            background: none;
-          }
         }
       }
-      .active {
-        background-color: darken(white, 15%);
+      .isotope-ul {
+        list-style-type: none;
+        margin: 10px 0 0 0;
+        padding: 0;
+        .interaction-div {
+          -webkit-box-shadow: 0px 0px 1px rgba(100, 100, 100, 0.45);
+          -moz-box-shadow:    0px 0px 1px rgba(100, 100, 100, 0.45);
+          box-shadow:         0px 0px 1px rgba(100, 100, 100, 0.45);
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+          display: inline-block;
+          padding: 3px 10px;
+          margin: 2px 1px;
+          background-color: white;
+          cursor: pointer;
+          &:hover {
+            background-color: darken(white, 10%);
+          }
+          li {
+            display: inline-block;
+            a {
+              color: #168dc0;
+              text-decoration: none;
+            }
+            a:active {
+              background: none;
+            }
+          }
+        }
+        .active {
+          background-color: darken(white, 15%);
+        }
       }
     }
   }
@@ -71,6 +74,8 @@
 div#isotope-content {
   width: 80%;
   float: right;
+  // position: relative;
+  // right: 0px;
   div.destination {
     border-top: 10px solid @lightGray;
     h2 {
@@ -125,38 +130,39 @@ div#isotope-content {
         }
       }
     }
-    .active0 {
-      background-color: @yellow;
-      &:hover { background-color: lighten(@yellow, 5%); }
-    }
-    .active1 {
-      background-color: @green;
-      &:hover { background-color: lighten(@green, 5%); }
-    }
-    .active2 {
-      background-color: @blue;
-      &:hover { background-color: lighten(@blue, 5%); }
-    }
-    .active3 {
-      background-color: @purple;
-      &:hover { background-color: lighten(@purple, 5%); }
-    }
-    .active4 {
-      background-color: @pink;
-      &:hover { background-color: lighten(@pink, 5%); }
-    }
-    .active5 {
-      background-color: @orange;
-      &:hover { background-color: lighten(@orange, 5%); }
-    }
   }
+}
 
-  .isotope-item {
-    z-index: 2;
-  }
+.active0 {
+  background-color: @yellow !important;
+  &:hover { background-color: lighten(@yellow, 5%) !important; }
+}
+.active1 {
+  background-color: @green !important;
+  &:hover { background-color: lighten(@green, 5%) !important; }
+}
+.active2 {
+  background-color: @blue !important;
+  &:hover { background-color: lighten(@blue, 5%) !important; }
+}
+.active3 {
+  background-color: @purple !important;
+  &:hover { background-color: lighten(@purple, 5%) !important; }
+}
+.active4 {
+  background-color: @pink !important;
+  &:hover { background-color: lighten(@pink, 5%) !important; }
+}
+.active5 {
+  background-color: @orange !important;
+  &:hover { background-color: lighten(@orange, 5%) !important; }
+}
 
-  .isotope-hidden.isotope-item {
-    pointer-events: none;
-    z-index: 1;
-  }
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
 }

@@ -9,6 +9,15 @@
 @orange: rgba(255, 219, 199, 0.65);
 @lightGray: #ccc;
 
+@tgmBlue: #0b6eb8;
+@tgmBlueDark: #0064cd;
+@tgmGreen: #1aab45;
+@tgmRed: #f3454c;
+@tgmYellow: #f3bf07;
+@tgmOrange: #fd8939;
+@tgmPink: #C133B1;
+@tgmPurple: #800C8A;
+
 #main {
   margin: 0 auto;
   width: 100%;
@@ -50,17 +59,13 @@
             &:hover {
               background-color: darken(white, 10%);
             }
-            a {
-              color: #168dc0;
-              text-decoration: none;
-            }
             a:active {
               background: none;
             }
           }
-        }
-        .active {
-          background-color: darken(white, 15%);
+          .active {
+            background-color: darken(white, 15%);
+          }
         }
       }
     }
@@ -74,7 +79,6 @@ div#isotope-content {
   // position: relative;
   // right: 0px;
   div.destination {
-    border-top: 10px solid @lightGray;
     h2 {
       line-height: 0.9em;
       min-height: 40px;
@@ -154,6 +158,19 @@ div#isotope-content {
   background-color: @orange !important;
   &:hover { background-color: lighten(@orange, 5%) !important; }
 }
+
+div.Africa {border-top: 10px solid @tgmBlueDark; }
+a.Africa { color: @tgmBlueDark; }
+div.Asia { border-top: 10px solid @tgmOrange; }
+a.Asia {color: @tgmOrange; }
+div.Europe {border-top: 10px solid @tgmPurple; }
+a.Europe {color: @tgmPurple; }
+div.Oceania {border-top: 10px solid @tgmGreen; }
+a.Oceania {color: @tgmGreen; }
+div.NorthernAmerica {border-top: 10px solid @tgmYellow; }
+a.NorthernAmerica {color: @tgmYellow; }
+div.SouthAmerica {border-top: 10px solid @tgmPink; }
+a.SouthAmerica {color: @tgmPink; }
 
 .isotope-item {
   z-index: 2;

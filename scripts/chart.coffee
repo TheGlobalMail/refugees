@@ -149,7 +149,9 @@ d3.json '/data/nested.json', (json) ->
     
     countryDivs = countryJoin.enter().append('div')
       .attr('class', (d) -> 'destination ' + d.region.replace(/(\s|\(|\))/g, '') + ' ' + d.continent.replace(/(\s|\(|\))/g, ''))
-      .html((d) -> '<h2>' + d.destination + '</h2><p class="overview-p"><strong>' + formatNum(d.applicants) + '</strong> asylum seekers since 2000, or <strong>' + d3.round(d.per1k, 2) + '</strong> for every 1,000 people.</p>')
+      .html((d) -> '<h2>' + d.destination + '</h2><p class="overview-p"><strong>' + formatNum(d.applicants) + '</strong> asylum seekers since 2000, or <strong>' + d3.round(d.per1k, 2) + '</strong> for every 1,000 people.</p>' + '
+        <div class="origin-table-header"><span class="origin-name">Origin</span><span class="origin-num">No.</span></div>'
+      )
 
     originJoin = countryDivs.selectAll('.origin')
       .data((d) -> d.origins)

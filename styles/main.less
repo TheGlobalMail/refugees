@@ -1,7 +1,6 @@
 @import "tgm.less";
 @import "../bower_components/isotope/css/style.css";
 
-
 @tgmBlue: #0b6eb8;
 @tgmBlueDark: #0064cd;
 @tgmGreen: #1aab45;
@@ -23,6 +22,18 @@
   margin: 0 auto;
   width: 100%;
   position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  visibility: hidden; 
+  width: 150px;
+  background-color: white;
+  padding: 3px 6px;
+  -webkit-box-shadow: 0px 0px 7px rgba(73, 73, 78, 0.8);
+  -moz-box-shadow:    0px 0px 7px rgba(73, 73, 78, 0.8);
+  box-shadow:         0px 0px 7px rgba(73, 73, 78, 0.8);
 }
 
 .isotope-list-wrapper {
@@ -134,7 +145,7 @@ span.origin-num {
   display: inline-block;
   text-align: right;
 }
-  
+
 .active0 {
   background-color: @yellow !important;
   &:hover { background-color: lighten(@yellow, 5%) !important; }

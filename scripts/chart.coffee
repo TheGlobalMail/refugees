@@ -1,11 +1,15 @@
 margin = {t: 20, r: 30, b: 20, l:40}
 w = 260 - margin.l - margin.r
 h = 140 - margin.t - margin.b
-x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1)
+x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1).domain(d3.range(2000, 2013))
 y = d3.scale.linear().range([h, 0])
 formatNum = d3.format(',')
 numActive = 0
 $isotope = $('#isotope-content')
+
+tooltip = d3.select("#isotope-content")
+  .append("div")
+  .attr('class', 'tooltip')
 
 xAxis = d3.svg.axis()
   .orient('bottom')
@@ -39,7 +43,6 @@ $('.isotope-filter-div').click(() ->
   $('.isotope-filter-div').removeClass('active')
   $(this).addClass('active')
   $selector = $(this).find('a').attr('data-filter')
-  console.log $selector
   $isotope.isotope({ filter: $selector })
 )
 
@@ -92,11 +95,6 @@ hidePlots = () ->
     $selection.unbind('click').click(revealPlots)
   )
 
-makeOverview = (self) ->
-  data = self[0][0].__data__
-  console.log data
-
-
 # func to draw a plot for a given country
 makePlot = (self) ->
   data = self[0][0].__data__
@@ -114,7 +112,6 @@ makePlot = (self) ->
     .attr('class', 'plotG')
     .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
 
-  x.domain(yearData.map (d) -> d.year)
   y.domain([0, d3.max(yearData, (d) -> Math.max(0.5, d.applicantsPer1k))])
 
   plotSvg.append('g')
@@ -138,6 +135,18 @@ makePlot = (self) ->
       x: (d) -> x(d.year)
       y: (d) -> y(d.applicantsPer1k)  
     })
+    .on('mouseover', (d) ->
+      tooltip.html(d3.round(d.applicantsPer1k, 2) + ' applicants per 1,000 people')
+      tooltip.style('visibility', 'visible')
+    )
+    .on('mousemove', () -> 
+      widthOffset = $('.isotope-list-wrapper').width()
+      tooltip.style({
+        top: (d3.event.pageY - 60) + 'px'
+        left: (d3.event.pageX - widthOffset - 75) + 'px'
+      })
+    )
+    .on('mouseout', () -> tooltip.style('visibility', 'hidden'))
 
 # make all the info
 d3.json '/data/nested.json', (json) ->

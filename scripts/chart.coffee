@@ -1,5 +1,5 @@
 margin = {t: 20, r: 30, b: 20, l:40}
-w = 250 - margin.l - margin.r
+w = 260 - margin.l - margin.r
 h = 140 - margin.t - margin.b
 x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1)
 y = d3.scale.linear().range([h, 0])
@@ -92,6 +92,11 @@ hidePlots = () ->
     $selection.unbind('click').click(revealPlots)
   )
 
+makeOverview = (self) ->
+  data = self[0][0].__data__
+  console.log data
+
+
 # func to draw a plot for a given country
 makePlot = (self) ->
   data = self[0][0].__data__
@@ -144,16 +149,14 @@ d3.json '/data/nested.json', (json) ->
     
     countryDivs = countryJoin.enter().append('div')
       .attr('class', (d) -> 'destination ' + d.region.replace(/(\s|\(|\))/g, '') + ' ' + d.continent.replace(/(\s|\(|\))/g, ''))
-      # .attr('data-region', (d) -> d.region.replace(/(\s|\(|\))/g, ''))
-      # .attr('data-continent', (d) -> d.continent.replace(/(\s|\(|\))/g, ''))
-      .html((d) -> '<h2>' + d.destination + '</h2><p>' + formatNum(d.applicants) + ' people have sought asylum. That\'s ' + d3.round(d.per1k, 2) + ' asylum seekers for every 1,000 people.</p>')
+      .html((d) -> '<h2>' + d.destination + '</h2><p class="overview-p"><strong>' + formatNum(d.applicants) + '</strong> asylum seekers since 2000, or <strong>' + d3.round(d.per1k, 2) + '</strong> for every 1,000 people.</p>')
 
     originJoin = countryDivs.selectAll('.origin')
       .data((d) -> d.origins)
 
     originDivs = originJoin.enter().append('div')
       .attr('class', 'origin')
-      .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\))/g, ''))
+      .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\)|')/g, ''))
       .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
       .each(() -> d3.select(this).call(makePlot))
 

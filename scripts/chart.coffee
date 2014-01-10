@@ -57,43 +57,64 @@ $('.isotope-sorter-div').click(() ->
 
 reIsotope = (el) ->
   origOffset = el.parent().offset().top
-  $isotope.isotope('reLayout', () -> 
+  $isotope.isotope('reLayout', () ->
     if Math.abs(el.parent().offset().top - origOffset) > (window.innerHeight * 2/3)
       $('html, body').animate({
         scrollTop: el.parent().offset().top - 40
       }, 700))
 
 # draw all plots for that country
-revealPlots = () ->
+drawPlots = () ->
   numActive++
   $self = $(this)
   dataName = $self.attr('data-name')
   activeClassNum = (numActive % 6).toString()
   $selection = $('div[data-name=' + dataName + ']')
 
-  $selection.addClass('active' + activeClassNum)
-  $selection.find('.plotDiv').slideDown()
+  console.log d3.selectAll('[data-name=' + dataName + ']')
+  d3.selectAll('[data-name=' + dataName + ']')
+    .classed('active' + activeClassNum, true)
+    .each(() ->
+      if d3.select(this)[0][0].__data__
+        d3.select(this).call(makePlot)
+    )
+
+  $('.plotDiv').slideDown()
 
   $(":animated").promise().done(() ->
     reIsotope($self)
-    $selection.unbind('click').click(hidePlots)
+    $selection.unbind('click').click(removePlots)
   )
-  
+
+removePlot = () ->
+  el = this
+  el.selectAll('.plotRect').transition()
+    .attr({
+      width: x.rangeBand()
+      height: 0
+      y: (d) -> h
+    })
+    .style('opacity', 0.2)
+    .each('end', () ->
+      el.select('.plotDiv').remove()
+      el.on('click', drawPlots)
+    )
+
 # func to un-transition and delete a plot
-hidePlots = () ->
+removePlots = () ->
   $self = $(this)
-  dataName = $self.attr('data-name')
-  $selection = $('[data-name=' + dataName + ']')
+  numActive--
+  dataName = d3.select(this).attr('data-name')
+  selection = d3.selectAll('[data-name=' + dataName + ']')
+  
+  selection
+    .attr('class', 'origin')
+    .each(() ->
+      d3.select(this).call(removePlot)
+    )
 
-  $selection.find('.plotDiv').slideUp()
-
-  $(":animated").promise().done(() ->
-    $selection.removeClass (i, css) -> 
-      css.match(/active\d/g, '')[0]
-      
-    reIsotope($self)
-    $selection.unbind('click').click(revealPlots)
-  )
+  $('.plotDiv').slideUp()
+  $(":animated").promise().done(() -> reIsotope($self))
 
 # func to draw a plot for a given country
 makePlot = (self) ->
@@ -133,13 +154,13 @@ makePlot = (self) ->
       width: x.rangeBand()
       height: (d) -> h - y(d.applicantsPer1k)
       x: (d) -> x(d.year)
-      y: (d) -> y(d.applicantsPer1k)  
+      y: (d) -> y(d.applicantsPer1k)
     })
     .on('mouseover', (d) ->
       tooltip.html(d3.round(d.applicantsPer1k, 2) + ' applicants per 1,000 people')
       tooltip.style('visibility', 'visible')
     )
-    .on('mousemove', () -> 
+    .on('mousemove', () ->
       widthOffset = $('.isotope-list-wrapper').width()
       tooltip.style({
         top: (d3.event.pageY - 60) + 'px'
@@ -169,8 +190,7 @@ d3.json '/data/nested.json', (json) ->
       .attr('class', 'origin')
       .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\)|')/g, ''))
       .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
-      .each(() -> d3.select(this).call(makePlot))
 
-  $('.origin, .origin-div').on('click', revealPlots)
+  $('.origin, .origin-div').on('click', drawPlots)
 
   initIsotope()

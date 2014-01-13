@@ -1,4 +1,12 @@
 @import "tgm.less";
+@import "../bower_components/bootstrap/less/mixins";
+@import "../bower_components/bootstrap/less/variables";
+@import "../bower_components/bootstrap/less/navs";
+@import "../bower_components/bootstrap/less/navbar";
+@import "../bower_components/bootstrap/less/utilities";
+@import "../bower_components/bootstrap/less/forms";
+@import "../bower_components/bootstrap/less/buttons";
+@import "../bower_components/bootstrap/less/dropdowns";
 @import "../bower_components/isotope/css/style.css";
 
 @tgmBlue: #0b6eb8;
@@ -17,6 +25,10 @@
 @pink: rgba(255, 199, 225, 0.40);
 @orange: rgba(255, 219, 199, 0.40);
 @lightGray: #ccc;
+
+body {
+  padding-top: 50px;
+}
 
 #main {
   margin: 0 auto;
@@ -38,48 +50,39 @@
 }
 
 .isotope-list-wrapper {
-  width: 18%;
-  margin-right: 2%;
-  position: fixed;
-  .isotope-list-fixed {
-    .isotope-list {
-      margin: 20px 15px 50px 15px;
-      .isotope-list-title {
-        border-bottom: 5px solid @lightGray;
-        h3 {
-          font-size: 1.5em;
-          margin: 2px 0px;
-          display: inline-block;
+  width: 100%;
+  /*position: fixed;*/
+  height: 40px;
+  top: 0;
+  .isotope-list-el {
+    display: inline-block;
+    .navbar-btn {
+      /*margin-right: 25px;*/
+    }
+  }
+  .isotope-list {
+    display: inline-block;
+    .isotope-list-title {
+      font-size: 1.1em;
+      display: inline;
+    }
+    .isotope-ul {
+      padding: 0;
+      li {
+        .interaction-div {
+          padding: 3px 10px;
+          margin: 2px 1px;
+          background-color: white;
+          cursor: pointer;
+          &:hover {
+            background-color: darken(white, 10%);
+          }
+          a:active {
+            background: none;
+          }
         }
-      }
-      .isotope-ul {
-        list-style-type: none;
-        margin: 10px 0 0 0;
-        padding: 0;
-        li {
-          display: inline-block;
-          .interaction-div {
-            -webkit-box-shadow: 0px 0px 1px rgba(100, 100, 100, 0.45);
-            -moz-box-shadow:    0px 0px 1px rgba(100, 100, 100, 0.45);
-            box-shadow:         0px 0px 1px rgba(100, 100, 100, 0.45);
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            display: inline-block;
-            padding: 3px 10px;
-            margin: 2px 1px;
-            background-color: white;
-            cursor: pointer;
-            &:hover {
-              background-color: darken(white, 10%);
-            }
-            a:active {
-              background: none;
-            }
-          }
-          .active {
-            background-color: darken(white, 15%);
-          }
+        .active {
+          background-color: darken(white, 15%);
         }
       }
     }
@@ -88,10 +91,9 @@
 
 // chart-specific things here
 div#isotope-content {
-  width: 80%;
-  float: right;
-  // position: relative;
-  // right: 0px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
   div.destination {
     h2 {
       line-height: 0.9em;

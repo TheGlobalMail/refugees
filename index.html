@@ -10,43 +10,60 @@
   <body>
     
     <div id="main" role="main">
-        <div class="isotope-list-wrapper">
-            <div class="isotope-list-fixed">
-                <div class="isotope-list">
-                    <div class="isotope-list-title"><h3>Filter regions</h3></div>
-                    <ul class="isotope-ul" id="isotope-filters">
-                       <li><div class="isotope-filter-div active interaction-div"><a href="#" data-filter="*">Show all</a></div></li>
-                       <li><div class="isotope-filter-div interaction-div"><a class="Africa" href="#" data-filter=".Africa">Africa</a></div></li>
-                       <li><div class="isotope-filter-div interaction-div"><a class="Asia" href="#" data-filter=".Asia">Asia</a></div></li>
-                       <li><div class="isotope-filter-div interaction-div"><a class="Europe" href="#" data-filter=".Europe">Europe</a></div></li>
-                       <li><div class="isotope-filter-div interaction-div"><a class="Oceania" href="#" data-filter=".Oceania">Oceania</a></div></li>
-                       <li><div class="isotope-filter-div interaction-div"><a class="NorthernAmerica" href="#" data-filter=".NorthernAmerica">North America</a></div></li>
-                       <li><div class="isotope-filter-div interaction-div"><a class="SouthAmerica" href="#" data-filter=".SouthAmerica">South America</a></div></li>
-                    </ul>
-                </div>
-                <div class="isotope-list">
-                    <div class="isotope-list-title"><h3>Sort</h3></div>
-                    <ul class="isotope-ul" id="isotope-sorters">
-                        <li><div class="isotope-sorter-div active interaction-div"><a href="#name">Name</a></div></li>
-                        <li><div class="isotope-sorter-div interaction-div"><a href="#applicants">Applicants</a></div></li>
-                        <li><div class="isotope-sorter-div interaction-div"><a href="#per1k">Per 1,000 people</a></div></li>
-                        <li><div class="isotope-sorter-div interaction-div"><a href="#population">Population</a></div></li>
-                    </ul>
-                </div>
-                <div class="isotope-list top-origins">
-                    <div class="isotope-list-title"><h3>Top origin countries</h3></div>
-                    <div class="origin" data-name="Zimbabwe"><span class="origin-name"><h4>Zimbabwe</h4></span><span class="origin-num">579,864</span></div>
-                    <div class="origin" data-name="Iraq"><span class="origin-name"><h4>Iraq</h4></span><span class="origin-num">457,836</span></div>
-                    <div class="origin" data-name="Somalia"><span class="origin-name"><h4>Somalia</h4></span><span class="origin-num">412,928</span></div>
-                    <div class="origin" data-name="DRCongo"><span class="origin-name"><h4>DR Congo</h4></span><span class="origin-num">351,018</span></div>
-                    <div class="origin" data-name="Afghanistan"><span class="origin-name"><h4>Afghanistan</h4></span><span class="origin-num">374,008</span></div>
-                    <div class="origin" data-name="China"><span class="origin-name"><h4>China</h4></span><span class="origin-num">352,279</span></div>
-                    <div class="origin" data-name="Russia"><span class="origin-name"><h4>Russia</h4></span><span class="origin-num">320,520</span></div>
-                    <div class="origin" data-name="Eritrea"><span class="origin-name"><h4>Eritrea</h4></span><span class="origin-num">287,763</span></div>
-                    <div class="origin" data-name="Colombia"><span class="origin-name"><h4>Colombia</h4></span><span class="origin-num">263,580</span></div>
-                    <div class="origin" data-name="Myanmar"><span class="origin-name"><h4>Myanmar</h4></span><span class="origin-num">255,185</span></div>
-                </div>
+        <div class="isotope-list-wrapper navbar navbar-default navbar-fixed-top" role="navigation">
+          <ul class="nav">
+            <!--<div class="btn-group isotope-list">-->
+            <div class="isotope-list-el">
+            <p class="navbar-text isotope-list-title">Filter region</p>
+            <li class="btn-group dropdown isotope-list">
+                <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
+                  Show all <span class="caret">
+                </button>
+                <ul class="isotope-ul dropdown-menu" id="isotope-filters" role="menu">
+                   <li><div class="isotope-filter-div active interaction-div"><a href="#" data-filter="*">Show all</a></div></li>
+                   <li><div class="isotope-filter-div interaction-div"><a class="Africa" href="#" data-filter=".Africa">Africa</a></div></li>
+                   <li><div class="isotope-filter-div interaction-div"><a class="Asia" href="#" data-filter=".Asia">Asia</a></div></li>
+                   <li><div class="isotope-filter-div interaction-div"><a class="Europe" href="#" data-filter=".Europe">Europe</a></div></li>
+                   <li><div class="isotope-filter-div interaction-div"><a class="Oceania" href="#" data-filter=".Oceania">Oceania</a></div></li>
+                   <li><div class="isotope-filter-div interaction-div"><a class="NorthernAmerica" href="#" data-filter=".NorthernAmerica">North America</a></div></li>
+                   <li><div class="isotope-filter-div interaction-div"><a class="SouthAmerica" href="#" data-filter=".SouthAmerica">South America</a></div></li>
+                </ul>
+            </li>
             </div>
+            <div class="isotope-list-el">
+            <p class="navbar-text isotope-list-title">Sort by</p>
+            <li class="btn-group dropdown isotope-list">
+                <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
+                  Name <span class="caret">
+                </button>
+                <ul class="isotope-ul dropdown-menu" id="isotope-sorters">
+                    <li class="dropdown"><div class="isotope-sorter-div active interaction-div"><a href="#name">Name</a></div></li>
+                    <li class="dropdown"><div class="isotope-sorter-div interaction-div"><a href="#applicants">Applicants</a></div></li>
+                    <li class="dropdown"><div class="isotope-sorter-div interaction-div"><a href="#per1k">Per 1,000 people</a></div></li>
+                    <li class="dropdown"><div class="isotope-sorter-div interaction-div"><a href="#population">Population</a></div></li>
+                </ul>
+            </li>
+            </div>
+            <div class="isotope-list-el">
+            <li class="btn-group dropdown isotope-list top-origins">
+                <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
+                  Top Origins <span class="caret">
+                </button>
+                <ul class="dropdown-menu" role="menu"> 
+                  <li><div class="origin" data-name="Zimbabwe"><span class="origin-name"><h4>Zimbabwe</h4></span><span class="origin-num">579,864</span></div></li>
+                  <li><div class="origin" data-name="Iraq"><span class="origin-name"><h4>Iraq</h4></span><span class="origin-num">457,836</span></div></li>
+                  <li><div class="origin" data-name="Somalia"><span class="origin-name"><h4>Somalia</h4></span><span class="origin-num">412,928</span></div></li>
+                  <li><div class="origin" data-name="DRCongo"><span class="origin-name"><h4>DR Congo</h4></span><span class="origin-num">351,018</span></div></li>
+                  <li><div class="origin" data-name="Afghanistan"><span class="origin-name"><h4>Afghanistan</h4></span><span class="origin-num">374,008</span></div></li>
+                  <li><div class="origin" data-name="China"><span class="origin-name"><h4>China</h4></span><span class="origin-num">352,279</span></div></li>
+                  <li><div class="origin" data-name="Russia"><span class="origin-name"><h4>Russia</h4></span><span class="origin-num">320,520</span></div></li>
+                  <li><div class="origin" data-name="Eritrea"><span class="origin-name"><h4>Eritrea</h4></span><span class="origin-num">287,763</span></div></li>
+                  <li><div class="origin" data-name="Colombia"><span class="origin-name"><h4>Colombia</h4></span><span class="origin-num">263,580</span></div></li>
+                  <li><div class="origin" data-name="Myanmar"><span class="origin-name"><h4>Myanmar</h4></span><span class="origin-num">255,185</span></div></li>
+                </ul>
+            </li>
+            </div>
+          </ul>
         </div>
         <div id="isotope-content">
             
@@ -56,9 +73,9 @@
     <!-- paths to library scripts go here -->
     <!-- build:js ./scripts/script.min.js -->
     <script src="bower_components/d3/d3.js" charset="utf-8"></script>
-    <script src="bower_components/d3-tip/index.js" charset="utf-8"></script>
     <script src="bower_components/jquery/jquery.min.js" charset="utf-8"></script>
     <script src="bower_components/isotope/jquery.isotope.min.js" charset="utf-8"></script>
+    <script src="bower_components/bootstrap/js/dropdown.js" charset="utf-8"></script>
     <script type="text/javascript" src="scripts/app.js"></script>
     <!-- endbuild -->
 </body>

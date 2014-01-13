@@ -182,3 +182,8 @@ d3.json '/data/nested.json', (json) ->
   $('.origin, .origin-div').on('click', drawPlots)
 
   initIsotope()
+
+$('.dropdown-menu li .interaction-div').click () ->
+  selText = $(this).text()
+  $(this).parents('.btn-group').find('.dropdown-toggle')
+    .html(selText + ' <span class="caret"></span>');

@@ -63,7 +63,7 @@ reIsotope = (el) ->
         scrollTop: el.parent().offset().top - 40
       }, 700))
 
-# draw all plots for that country
+# draw all plots for chosen country
 drawPlots = () ->
   numActive++
   $self = $(this)
@@ -71,7 +71,7 @@ drawPlots = () ->
   activeClassNum = (numActive % 6).toString()
   $selection = $('div[data-name=' + dataName + ']')
 
-  console.log d3.selectAll('[data-name=' + dataName + ']')
+  # give active class to selected things, draw charts
   d3.selectAll('[data-name=' + dataName + ']')
     .classed('active' + activeClassNum, true)
     .each(() ->
@@ -79,42 +79,28 @@ drawPlots = () ->
         d3.select(this).call(makePlot)
     )
 
-  $('.plotDiv').slideDown()
+  $selection.find('.plotDiv').slideDown()
 
+  # reisotope after slide animation
   $(":animated").promise().done(() ->
     reIsotope($self)
     $selection.unbind('click').click(removePlots)
   )
 
-removePlot = () ->
-  el = this
-  el.selectAll('.plotRect').transition()
-    .attr({
-      width: x.rangeBand()
-      height: 0
-      y: (d) -> h
-    })
-    .style('opacity', 0.2)
-    .each('end', () ->
-      el.select('.plotDiv').remove()
-      el.on('click', drawPlots)
-    )
-
-# func to un-transition and delete a plot
+# func to un-transition plot and remove active class
 removePlots = () ->
   $self = $(this)
   numActive--
   dataName = d3.select(this).attr('data-name')
-  selection = d3.selectAll('[data-name=' + dataName + ']')
-  
-  selection
-    .attr('class', 'origin')
-    .each(() ->
-      d3.select(this).call(removePlot)
-    )
+  $selection = $('div[data-name=' + dataName + ']')
 
-  $('.plotDiv').slideUp()
-  $(":animated").promise().done(() -> reIsotope($self))
+  $selection.find('.plotDiv').slideUp()
+  $(":animated").promise().done () ->
+    $selection.removeClass (i, css) ->
+      css.match(/active\d/g, '')[0]
+      
+    reIsotope($self)
+    $selection.unbind('click').click(drawPlots)
 
 # func to draw a plot for a given country
 makePlot = (self) ->

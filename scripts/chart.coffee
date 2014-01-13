@@ -7,8 +7,8 @@ formatNum = d3.format(',')
 numActive = 0
 $isotope = $('#isotope-content')
 
-tooltip = d3.select("#isotope-content")
-  .append("div")
+tooltip = d3.select('#isotope-content')
+  .append('div')
   .attr('class', 'tooltip')
 
 xAxis = d3.svg.axis()
@@ -75,8 +75,10 @@ drawPlots = () ->
   d3.selectAll('[data-name=' + dataName + ']')
     .classed('active' + activeClassNum, true)
     .each(() ->
-      if d3.select(this)[0][0].__data__
-        d3.select(this).call(makePlot)
+      d3el = d3.select(this)
+      if d3el[0][0].__data__ and not d3el[0][0].__drawn__
+        d3el.call(makePlot)
+        d3el[0][0].__drawn__ = true
     )
 
   $selection.find('.plotDiv').slideDown()

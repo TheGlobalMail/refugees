@@ -13,7 +13,7 @@ tooltip = d3.select("#isotope-content")
 
 xAxis = d3.svg.axis()
   .orient('bottom')
-  .tickFormat((d, i) -> if i%2 is 0 then d else '')
+  .tickFormat((d, i) -> if i%3 is 0 then d else '')
   .tickSize(3, 0, 0)
   .scale(x)
 

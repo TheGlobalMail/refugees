@@ -145,14 +145,15 @@ makePlot = (self) ->
       y: (d) -> y(d.applicantsPer1k)
     })
     .on('mouseover', (d) ->
+      console.log 'mousedover'
       tooltip.html(d3.round(d.applicantsPer1k, 2) + ' applicants per 1,000 people')
       tooltip.style('visibility', 'visible')
     )
     .on('mousemove', () ->
-      widthOffset = $('.isotope-list-wrapper').width()
+      #widthOffset = $('.isotope-list-wrapper').width()
       tooltip.style({
-        top: (d3.event.pageY - 60) + 'px'
-        left: (d3.event.pageX - widthOffset - 75) + 'px'
+        top: (d3.event.pageY - 110) + 'px'
+        left: (d3.event.pageX - 45) + 'px'
       })
     )
     .on('mouseout', () -> tooltip.style('visibility', 'hidden'))

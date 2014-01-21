@@ -1,0 +1,69 @@
+
+$icon-font-path: '../bower_components/sass-bootstrap/fonts/';
+
+/* Below is a subset of bootstrap. To use all of bootstrap uncomment: */
+/* @import 'sass-bootstrap/lib/bootstrap'; */
+
+// Core variables and mixins
+@import '../bower_components/sass-bootstrap/lib/_variables';
+@import '../bower_components/sass-bootstrap/lib/_mixins';
+
+// Reset
+@import '../bower_components/sass-bootstrap/lib/_normalize';
+@import '../bower_components/sass-bootstrap/lib/_print';
+
+// Core CSS
+@import '../bower_components/sass-bootstrap/lib/_forms';
+
+// Utility classes
+@import '../bower_components/sass-bootstrap/lib/_utilities';
+@import '../bower_components/sass-bootstrap/lib/_responsive-utilities';
+
+// Other bootstrap reqs
+@import "../bower_components/sass-bootstrap/lib/_navs";
+@import "../bower_components/sass-bootstrap/lib/_navbar";
+@import "../bower_components/sass-bootstrap/lib/_buttons";
+@import "../bower_components/sass-bootstrap/lib/_dropdowns";
+@import "../bower_components/sass-bootstrap/lib/_normalize";
+@import "../bower_components/sass-bootstrap/lib/_component-animations";
+@import "../bower_components/sass-bootstrap/lib/_panels";
+
+// Default TGM styles. Uncomment and edit app- files to override */
+
+// Layout
+@import '../bower_components/tgm-styles/scss/_tgm-layout';
+// @import '_app-layout';
+
+// Type
+// @import '../bower_components/tgm-styles/scss/_tgm-type';
+ @import '_app-type';
+
+// Colors
+// @import '../bower_components/tgm-styles/scss/_tgm-colors';
+@import '_app-colors';
+
+// Mixins
+@import '../bower_components/tgm-styles/scss/_tgm-mixins';
+// @import '_app-mixins';
+
+// Default scaffolding
+@import '../bower_components/tgm-styles/scss/_tgm-base';
+@import '../bower_components/tgm-styles/scss/_tgm-header';
+
+// Reponsive
+//@import '../bower_components/tgm-styles/scss/_tgm-responsive';
+@import '_app-responsive';
+
+@import '../bower_components/tgm-styles/scss/_tgm-base-responsive';
+@import '../bower_components/tgm-styles/scss/_tgm-header-responsive';
+//
+// TGM Widgets
+// @import '../bower_components/tgm-styles/scss/widgets/tgm-special-nav';
+
+// Any other app-level variables (optional)
+@import '_app-variables';
+@import "../bower_components/isotope/css/style.css";
+
+// App-specific style 
+@import '_chart';
+@import '_app';

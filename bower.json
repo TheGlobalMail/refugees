@@ -1,19 +1,13 @@
 {
-  "name": "tgm-chart",
-  "version": "0.0.2",
-  "homepage": "https://github.com/TheGlobalMail/chart-template",
-  "description": "automate the task of making a tgm chart",
+  "name": "refugees",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components"
-  ],
   "dependencies": {
-    "d3": "~3.3.9",
-    "jquery": "~1.10.2",
+    "requirejs": "~2.1.8",
+    "modernizr": "~2.6.2",
+    "tgm-styles": "git@github.com:TheGlobalMail/tgm-styles.git",
+    "d3": "~3.4.1",
     "isotope": "~1.5.25",
-    "d3-tip": "~0.6.2",
-    "bootstrap": "~3.0.3"
-  }
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {}
 }

@@ -1,0 +1,33 @@
+// Reused Mixins
+@mixin animation($arguments) {
+  -webkit-animation: $arguments;
+  -moz-animation: $arguments;
+  -ms-animation: $arguments;
+  -o-animation: $arguments;
+  animation: $arguments;
+}
+
+@mixin translate($string){
+  -webkit-translate: $string;
+  -moz-translate: $string;
+  -ms-translate: $string;
+  -o-translate: $string;
+  translate: $string;
+}
+
+@mixin transform($string){
+  -webkit-transform: $string;
+  -moz-transform: $string;
+  -ms-transform: $string;
+  -o-transform: $string;
+  transform: $string;
+}
+
+@mixin rotationFrames() {
+  0% {
+    @include transform(rotate(0deg));
+  }
+  100% {
+    @include transform(rotate(-360deg));
+  }
+}

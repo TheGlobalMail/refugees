@@ -60,7 +60,7 @@ reIsotope = (el) ->
   $isotope.isotope('reLayout', () ->
     if Math.abs(el.parent().offset().top - origOffset) > (window.innerHeight * 2/3)
       $('html, body').animate({
-        scrollTop: el.parent().offset().top - 40
+        scrollTop: el.parent().offset().top - 70
       }, 700))
 
 # draw all plots for chosen country
@@ -145,12 +145,10 @@ makePlot = (self) ->
       y: (d) -> y(d.applicantsPer1k)
     })
     .on('mouseover', (d) ->
-      console.log 'mousedover'
-      tooltip.html(d3.round(d.applicantsPer1k, 2) + ' applicants per 1,000 people')
+      tooltip.html(d3.round(d.applicantsPer1k, 2) + ' applicants per 1,000 people in ' + d.year)
       tooltip.style('visibility', 'visible')
     )
     .on('mousemove', () ->
-      #widthOffset = $('.isotope-list-wrapper').width()
       tooltip.style({
         top: (d3.event.pageY - 110) + 'px'
         left: (d3.event.pageX - 45) + 'px'

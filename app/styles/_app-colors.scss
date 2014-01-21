@@ -1,0 +1,35 @@
+// TGM Color Variables
+// --------------------------------------
+
+// TGM default colors
+$tgm-blue:               #0b6eb8;
+$tgm-blue-dark:          #0064cd;
+$tgm-green:              #1aab45;
+$tgm-red:                #f3454c;
+$tgm-yellow:             #f3bf07;
+$tgm-orange:             #fd8939;
+$tgm-pink:               #C133B1;
+$tgm-purple:             #800C8A;
+
+$gray-darker:            lighten(#000, 13.5%); // #222
+$gray-dark:              lighten(#000, 20%);   // #333
+$gray:                   lighten(#000, 33.5%); // #555
+$gray-light:             lighten(#000, 60%);   // #999
+$gray-lighter:           lighten(#000, 93.5%); // #eee
+$black:                  #000;
+
+// Defaults for app-level elements
+$color-bg:               rgb(238, 238, 238);
+$color-bg-dark:          darken($color-bg, 7%);
+$color-hilight:          rgb(204, 190, 41);
+$color-hilight-lighten:  lighten($color-hilight, 20%);
+
+$navbar-bg-color:        rgb(27, 27, 27);
+
+$accent-color-primary:   $gray-lighter;
+$accent-color-light:     lighten($tgm-blue, 20%);
+$accent-color-dark:      $tgm-blue;
+$accent-color-trsp:      rgba(0, 0, 0, 0.2);
+
+$color-text:             rgb(34, 35, 24);
+$color-overlay:          rgba(darken($color-text, 3.5%), 0.85);

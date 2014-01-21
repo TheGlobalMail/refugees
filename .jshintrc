@@ -1,0 +1,30 @@
+{
+  "globals": {
+    "console": false,
+    "define": false,
+    "window": false,
+    "$": false,
+    "d3": false
+  },
+  "trailing": true,
+  "strict": false,
+  "undef": true,
+  "unused": true,
+  "nonew": true,
+  "noempty": true,
+  "newcap": true,
+  "latedef": false,
+  "immed": true,
+  "forin": true,
+  "eqeqeq": true,
+  "camelcase": false,
+  "bitwise": true,
+  "maxparams": 5,
+  "maxdepth": 5,
+  "maxstatements": 25,
+  "maxcomplexity": 8,
+  "es5": true,
+  "esnext": true,
+  "node": true,
+  "smarttabs": true
+}

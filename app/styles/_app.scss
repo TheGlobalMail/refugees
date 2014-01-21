@@ -1,0 +1,49 @@
+// App-specific styles go here
+body {
+  padding: 50px 0px 0px 0px;
+  font-family: $font-family-sans-serif;
+}
+
+.intro-content {
+  width: 70%;
+  max-width: 800px;
+  margin: 0px auto 35px auto;
+  .headline {
+    border-bottom: 1px solid lighten($gray-light, 20%);
+    margin-bottom: 15px;
+    h1 {
+      font-size: 3.0em;
+      color: $accent-color-dark;
+      text-align: center;
+      line-height: 1.5em;
+      text-shadow: 1px 1px 1px rgba(150, 150, 150, 0.82);
+      text-transform: uppercase;
+      margin: 0;
+    }
+    h2 {
+      text-transform: uppercase;
+      text-align: center;
+      color: lighten($gray, 20%);
+      text-shadow: none;
+    }
+  }
+  .lead {
+    a {
+      color: $accent-color-dark;
+      text-decoration: none;
+      &:hover {
+        background-color: white;
+      }
+    }
+    font-size: 140%;
+    font-weight: 400;
+  }
+}
+
+#app-controls {
+  z-index: 100;
+  &.fixed {
+    position: fixed;
+    width: 100%;
+  }
+}

@@ -1,0 +1,36 @@
+// TGM Responsive Variables
+
+$smaller-width:  680px;    // -phones
+$small-width:    750px;    // -big phones, small tablets
+$med-width:      980px;    // -portrait tablets
+$big-width:      1120px;   // -landscape tablets, smaller screens
+$bigger-width:   $big-width + 1px;   // -big screens (default, used as min-width)
+
+$med-screen-margin: 20px;
+$sml-screen-margin: 10px;
+
+// Big stuff
+@media only screen and (max-width: $big-width) {
+}
+
+// Portrait tablets
+@media only screen and (max-width: $med-width) {
+  #app-controls {
+    &.fixed {
+      top: 50px;
+    }
+  }
+}
+
+// Big phones, small tablets
+@media only screen and (max-width: $small-width) {
+  #app-controls {
+    &.fixed {
+      top: 32px;
+    }
+  }
+} 
+
+// Phones
+@media only screen and (max-width: $smaller-width) {
+}

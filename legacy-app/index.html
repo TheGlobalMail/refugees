@@ -8,21 +8,43 @@
   </head>
 
   <body>
+  <header class="navbar special-feature" role="banner">
+      <a href="http://www.theglobalmail.org/" class="brand" title="Go to The Global Mail">The Global Mail</a>
+      <div class="special-feature-misc">
+        <div class="share-button twitter">
+          <a href="https://twitter.com/share" class="twitter-share-button"
+            data-via="TheGlobalMail" data-hashtags="tpp">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+        <div class="share-button facebook">
+          <div class="fb-like" data-send="false" data-layout="button_count" data-width="45" data-show-faces="false" data-colorscheme="light" data-action="like"></div>
+        </div>
+      </div>
+    </header>
     <div id="main" role="main">
+      <div class="intro-content">
+        <div class="headline">
+        </div>
+        <p class="lead"></p>
+        <p class="lead"></p>
+      </div>
         <div class="isotope-list-wrapper">
-          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <nav class="navbar navbar-default navbar-inverse" role="navigation">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
+              <a class="navbar-brand" href="http://theglobalmail.org">
+                <img src="images/tgm-strip-logo-masthead.png"></img>
+              </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
               <ul class="nav pull-right navbar-nav">
                <div class="isotope-list-el">
                 <li class="dropdown isotope-list btn-group top-origins">
-                  <button type="button" class="btn navbar-btn btn-default dropdown-toggle" data-toggle="dropdown">
+                  <button type="button" class="btn btn-sm navbar-btn btn-default dropdown-toggle" data-toggle="dropdown">
                     Top Origins <span class="caret">
                   </button>
                   <ul class="dropdown-menu pull-right"> 
@@ -42,7 +64,7 @@
                 <div class="isotope-list-el">
                 <p class="navbar-text isotope-list-title">Filter region</p>
                 <li class="dropdown isotope-list btn-group">
-                  <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
+                  <button type="button" class="btn btn-sm btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
                     Show all <span class="caret">
                   </button>
                   <ul class="isotope-ul dropdown-menu pull-right" id="isotope-filters" role="menu">
@@ -59,7 +81,7 @@
                 <div class="isotope-list-el">
                 <p class="navbar-text isotope-list-title">Sort by</p>
                 <li class="dropdown isotope-list btn-group">
-                  <button type="button" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
+                  <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
                     Name <span class="caret">
                   </button>
                   <ul class="isotope-ul dropdown-menu pull-right" id="isotope-sorters">

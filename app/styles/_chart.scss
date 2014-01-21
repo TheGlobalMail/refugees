@@ -1,0 +1,212 @@
+/*@import "../bower_components/sass-bootstrap/lib/_mixins";*/
+/*@import "../bower_components/sass-bootstrap/lib/_variables";*/
+/*@import "../bower_components/sass-bootstrap/lib/_navs";*/
+/*@import "../bower_components/sass-bootstrap/lib/_navbar";*/
+/*@import "../bower_components/sass-bootstrap/lib/_utilities";*/
+/*@import "../bower_components/sass-bootstrap/lib/_forms";*/
+/*@import "../bower_components/sass-bootstrap/lib/_buttons";*/
+/*@import "../bower_components/sass-bootstrap/lib/_dropdowns";*/
+/*@import "../bower_components/sass-bootstrap/lib/_normalize";*/
+/*@import "../bower_components/sass-bootstrap/lib/_component-animations";*/
+/*@import "../bower_components/sass-bootstrap/lib/_panels";*/
+
+$yellow: rgba(255, 248, 199, 0.40);
+$green: rgba(199, 255, 200, 0.40);
+$blue: rgba(199, 255, 252, 0.40);
+$purple: rgba(205, 199, 255, 0.40);
+$pink: rgba(255, 199, 225, 0.40);
+$orange: rgba(255, 219, 199, 0.40);
+$lightGray: #ccc;
+
+.navbar {
+  border-radius: 0;
+  &.special-feature {
+    min-height: 32px;
+  }
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  visibility: hidden; 
+  width: 150px;
+  background-color: white;
+  padding: 3px 6px;
+  -webkit-box-shadow: 0px 0px 7px rgba(73, 73, 78, 0.8);
+  -moz-box-shadow:    0px 0px 7px rgba(73, 73, 78, 0.8);
+  box-shadow:         0px 0px 7px rgba(73, 73, 78, 0.8);
+  border-radius: 4px;
+}
+
+.isotope-list-wrapper {
+  width: 100%;
+  .nav {
+    padding-right: 20px;
+    .btn-default {
+      background-color: darken(white, 5%);
+    }
+  }
+  text-align: right;
+  .isotope-list-el {
+    /*display: inline-block;*/
+    /*margin-right: 15px;*/
+  }
+  .isotope-list-title {
+    font-size: 1.1em;
+    color: lighten(black, 15%);
+    line-height: 0;
+    margin-top: 25px;
+    display: inline-block;
+  }
+  .isotope-list {
+    display: inline-block;
+    .isotope-ul {
+      padding: 0;
+      li {
+        .interaction-div {
+          padding: 3px 10px;
+          margin: 2px 1px;
+          background-color: white;
+          cursor: pointer;
+          &:hover {
+            background-color: darken(white, 10%);
+          }
+          a:active {
+            background: none;
+          }
+        }
+        .active {
+          background-color: darken(white, 15%);
+        }
+      }
+    }
+  }
+}
+
+// chart-specific things here
+div#isotope-content {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  div.destination {
+    h2.destination-name {
+      text-transform: uppercase;
+      line-height: 0.9em;
+      margin: 5px 0 15px 0;
+    }
+    h3 {
+      text-align: center;
+      font-size: 110%;
+    }
+    .overview-p {
+      font-size: 110%;
+      line-height: 1.2em;
+      /*text-align: center;*/
+    }
+    .origin-table-header {
+      font-weight: 600;
+      padding: 3px 5px;
+      border-bottom: 1px dotted gray;
+    }
+    width: 260px;
+    margin: 1em 0.5em;
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: white;
+    .plotDiv {
+      margin: 6px 0;
+      display: none;
+      .axis {
+        path, line {
+          fill: none;
+          stroke: gray;
+          shape-rendering: crispEdges;
+        }
+        text {
+          font: 12px sans-serif;
+        }
+      }
+      .plotRect {
+        shape-rendering: crispEdges;
+        opacity: 0.7; 
+      }
+    }
+  }
+}
+
+span.origin-name {
+  width: 80%;
+  display: inline-block;
+}
+span.origin-num {
+  width: 20%;
+  display: inline-block;
+  text-align: right;
+}
+.top-origins {
+  .origin-name {
+    width: 60%;
+  }
+  .origin-num {
+    width: 40%;
+  }
+}
+.active0 {
+  background-color: $yellow !important;
+  &:hover { background-color: lighten($yellow, 5%) !important; }
+}
+.active1 {
+  background-color: $green !important;
+  &:hover { background-color: lighten($green, 5%) !important; }
+}
+.active2 {
+  background-color: $blue !important;
+  &:hover { background-color: lighten($blue, 5%) !important; }
+}
+.active3 {
+  background-color: $purple !important;
+  &:hover { background-color: lighten($purple, 5%) !important; }
+}
+.active4 {
+  background-color: $pink !important;
+  &:hover { background-color: lighten($pink, 5%) !important; }
+}
+.active5 {
+  background-color: $orange !important;
+  &:hover { background-color: lighten($orange, 5%) !important; }
+}
+
+div.Africa {border-top: 10px solid $tgm-blue-dark; }
+a.Africa { color: $tgm-blue-dark; }
+div.Asia { border-top: 10px solid $tgm-orange; }
+a.Asia {color: $tgm-orange; }
+div.Europe {border-top: 10px solid $tgm-purple; }
+a.Europe {color: $tgm-purple; }
+div.Oceania {border-top: 10px solid $tgm-green; }
+a.Oceania {color: $tgm-green; }
+div.NorthernAmerica {border-top: 10px solid $tgm-yellow; }
+a.NorthernAmerica {color: $tgm-yellow; }
+div.SouthAmerica {border-top: 10px solid $tgm-pink; }
+a.SouthAmerica {color: $tgm-pink; }
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+.origin {
+  padding: 3px 5px;
+  border-bottom: 1px dotted gray;
+  
+  &:hover {
+    background-color: lighten($yellow, 5%);
+    cursor: pointer;
+  }
+  h4 {
+    line-height: 1em;
+    display: inline;
+  }
+}

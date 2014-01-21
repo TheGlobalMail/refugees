@@ -5,3 +5,5 @@ data/.ipynb_checkpoints
 node_modules/
 bower_components/
 .DS_Store
+.sass-cache/
+.tmp/

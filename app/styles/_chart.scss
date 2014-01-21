@@ -108,7 +108,7 @@ div#isotope-content {
       padding: 3px 5px;
       border-bottom: 1px dotted gray;
     }
-    width: 260px;
+    width: 220px;
     margin: 1em 0.5em;
     display: inline-block;
     padding: 15px 20px;
@@ -122,12 +122,33 @@ div#isotope-content {
           stroke: gray;
           shape-rendering: crispEdges;
         }
+        .domain {
+          display: none;
+        }
         text {
           font: 12px sans-serif;
         }
       }
-      .plotRect {
-        shape-rendering: crispEdges;
+      .y.axis {
+        .tick {
+          line {
+            stroke: lighten($gray-light, 10%);
+            stroke-dasharray: 1 1;
+          }
+        }
+      }
+      .x.axis {
+        .tick {
+          line {
+            stroke: $gray-lighter;
+            /*stroke-dasharray: 1 1;*/
+          }
+        }
+      }
+      .plotLine {
+        fill: none;
+        stroke: $gray-dark;
+        stroke-width: 2px;
         opacity: 0.7; 
       }
     }
@@ -200,6 +221,9 @@ a.SouthAmerica {color: $tgm-pink; }
 .origin {
   padding: 3px 5px;
   border-bottom: 1px dotted gray;
+  &:nth-of-type(n+8) {
+   display: none; 
+  }
   
   &:hover {
     background-color: lighten($yellow, 5%);

@@ -2,11 +2,12 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
   init = () ->
     margin = {t: 20, r: 30, b: 20, l:40}
-    w = 260 - margin.l - margin.r
+    w = 220 - margin.l - margin.r
     h = 140 - margin.t - margin.b
     x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1).domain(d3.range(2000, 2013))
     y = d3.scale.linear().range([h, 0])
     formatNum = d3.format(',')
+    formatDec = d3.format('r1')
     numActive = 0
     $isotope = $('#isotope-content')
 
@@ -16,15 +17,19 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
     xAxis = d3.svg.axis()
       .orient('bottom')
-      .tickFormat((d, i) -> if i%3 is 0 then d else '')
+      .tickValues([2000, 2006, 2012])
       .tickSize(3, 0, 0)
       .scale(x)
 
     yAxis = d3.svg.axis()
       .orient('left')
-      .tickFormat((d, i) -> if i%2 is 0 then d else '')
-      .tickSize(3, 0, 0)
+      .tickSize(-w, 0, 0)
       .scale(y)
+
+    line = d3.svg.line()
+      .interpolate('basis')
+      .x((d) -> x(d.year))
+      .y((d) -> y(d.applicantsPer1k))
 
     initIsotope = () ->
       $isotope.isotope({
@@ -125,6 +130,13 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
 
       y.domain([0, d3.max(yearData, (d) -> Math.max(0.5, d.applicantsPer1k))])
+      newTickVals = d3.range(0, y.domain()[1], 0.2)
+      yAxis.tickValues(newTickVals)
+
+      if newTickVals.length > 6
+        yAxis.tickFormat((d, i) -> if i%2 is 0 then formatDec(d) else '')
+      else
+        yAxis.tickFormat(formatDec)
 
       plotSvg.append('g')
         .attr('class', 'x axis')
@@ -135,29 +147,12 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         .attr('class', 'y axis')
         .call(yAxis)
 
-      # actual meat of the plot, w/ transitions
-      plotRectsJoin = plotSvg.selectAll('.plotRect')
-        .data(yearData)
-
-      plotRects = plotRectsJoin.enter().append('rect')
+      plotLines = plotSvg.append('path')
+        .datum(yearData)
         .attr({
-          class: 'plotRect'
-          width: x.rangeBand()
-          height: (d) -> h - y(d.applicantsPer1k)
-          x: (d) -> x(d.year)
-          y: (d) -> y(d.applicantsPer1k)
+          class: 'plotLine'
+          d: (d) -> line(d)
         })
-        .on('mouseover', (d) ->
-          tooltip.html(d3.round(d.applicantsPer1k, 2) + ' applicants per 1,000 people in ' + d.year)
-          tooltip.style('visibility', 'visible')
-        )
-        .on('mousemove', () ->
-          tooltip.style({
-            top: (d3.event.pageY - 64) + 'px'
-            left: (d3.event.pageX - 30) + 'px'
-          })
-        )
-        .on('mouseout', () -> tooltip.style('visibility', 'hidden'))
 
     # make all the info
     d3.json '/data/nested.json', (json) ->
@@ -187,7 +182,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
     $('.interaction-div a').click () ->
       selText = $(this).text()
-      $(this).parents('.isotope-list').find('.dropdown-toggle')
+      $(this).parents('.dropdown').find('.dropdown-toggle')
         .html(selText + ' <span class="caret"></span>');
 
   return { init: init }

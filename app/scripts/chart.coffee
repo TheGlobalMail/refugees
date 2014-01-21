@@ -10,7 +10,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
     numActive = 0
     $isotope = $('#isotope-content')
 
-    tooltip = d3.select('#isotope-content')
+    tooltip = d3.select('#main')
       .append('div')
       .attr('class', 'tooltip')
 
@@ -153,8 +153,8 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         )
         .on('mousemove', () ->
           tooltip.style({
-            top: (d3.event.pageY - 110) + 'px'
-            left: (d3.event.pageX - 45) + 'px'
+            top: (d3.event.pageY - 64) + 'px'
+            left: (d3.event.pageX - 30) + 'px'
           })
         )
         .on('mouseout', () -> tooltip.style('visibility', 'hidden'))

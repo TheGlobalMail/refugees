@@ -43,6 +43,7 @@ body {
 #app-controls {
   z-index: 100;
   &.fixed {
+    top: 50px;
     position: fixed;
     width: 100%;
   }

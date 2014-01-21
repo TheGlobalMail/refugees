@@ -15,18 +15,13 @@ $sml-screen-margin: 10px;
 
 // Portrait tablets
 @media only screen and (max-width: $med-width) {
-  #app-controls {
-    &.fixed {
-      top: 50px;
-    }
-  }
 }
 
 // Big phones, small tablets
 @media only screen and (max-width: $small-width) {
   #app-controls {
     &.fixed {
-      top: 32px;
+      top: 32px !important;
     }
   }
 } 

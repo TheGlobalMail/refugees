@@ -163,12 +163,22 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
           .data(data, (d) -> d.destination)
         
         countryDivs = countryJoin.enter().append('div')
-          .attr('class', (d) -> 'destination ' + d.region.replace(/(\s|\(|\))/g, '') + ' ' + d.continent.replace(/(\s|\(|\))/g, ''))
-          .html((d) -> '<h2 class="destination-name">' + d.destination + '</h2><p class="overview-p"><strong>' + formatNum(d.applicants) + '</strong> asylum seekers since 2000, or <strong>' + d3.round(d.per1k, 2) + '</strong> for every 1,000 people.</p>' + '
-            <div class="origin-table-header"><span class="origin-name">Origin</span><span class="origin-num">No.</span></div>'
+          .attr('class', (d) ->  console.log d; "destination #{d.continent.replace(/(\s|\(|\))/g, '')}")
+          .html((d) ->
+            region = d.region.replace(/(\s|\(|\))/g, '')
+            continent = d.continent.replace(/(\s|\(|\))/g, '')
+            applicants = formatNum(d.applicants)
+            per1k = d3.round(d.per1k, 2)
+            return "<div class=\"destination-title #{region} #{continent}\">
+            <h2 class=\"destination-name\">#{d.destination}</h2>
+            </div>
+            <p class=\"overview-p\"><strong>#{applicants}</strong> asylum seekers since 2000, or <strong>#{per1k}</strong> for every 1,000 people.</p>"
           )
 
-        originJoin = countryDivs.selectAll('.origin')
+        originWrappers = countryDivs.append('div').attr('class', 'origin-wrapper')
+            .html("<div class=\"origin-table-header\"><span class=\"origin-name\">Origin</span><span class=\"origin-num\">No.</span></div>")
+
+        originJoin = originWrappers.selectAll('.origin')
           .data((d) -> d.origins)
 
         originDivs = originJoin.enter().append('div')

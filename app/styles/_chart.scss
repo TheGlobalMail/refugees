@@ -1,77 +1,6 @@
 $yellow: rgba(255, 248, 199, 0.40);
-$green: rgba(199, 255, 200, 0.40);
-$blue: rgba(199, 255, 252, 0.40);
-$purple: rgba(205, 199, 255, 0.40);
-$pink: rgba(255, 199, 225, 0.40);
-$orange: rgba(255, 219, 199, 0.40);
 $lightGray: #ccc;
 
-.navbar {
-  border-radius: 0;
-  &.special-feature {
-    min-height: 32px;
-  }
-}
-
-.tooltip {
-  position: absolute;
-  z-index: 10;
-  visibility: hidden; 
-  width: 150px;
-  background-color: white;
-  padding: 3px 6px;
-  -webkit-box-shadow: 0px 0px 7px rgba(73, 73, 78, 0.8);
-  -moz-box-shadow:    0px 0px 7px rgba(73, 73, 78, 0.8);
-  box-shadow:         0px 0px 7px rgba(73, 73, 78, 0.8);
-  border-radius: 4px;
-}
-
-.isotope-list-wrapper {
-  width: 100%;
-  .nav {
-    padding-right: 20px;
-    .btn-default {
-      background-color: darken(white, 5%);
-    }
-  }
-  text-align: right;
-  .isotope-list-el {
-    /*display: inline-block;*/
-    /*margin-right: 15px;*/
-  }
-  .isotope-list-title {
-    font-size: 1.1em;
-    color: lighten(black, 15%);
-    line-height: 0;
-    margin-top: 25px;
-    display: inline-block;
-  }
-  .isotope-list {
-    display: inline-block;
-    .isotope-ul {
-      padding: 0;
-      li {
-        .interaction-div {
-          padding: 3px 10px;
-          margin: 2px 1px;
-          background-color: white;
-          cursor: pointer;
-          &:hover {
-            background-color: darken(white, 10%);
-          }
-          a:active {
-            background: none;
-          }
-        }
-        .active {
-          background-color: darken(white, 15%);
-        }
-      }
-    }
-  }
-}
-
-// chart-specific things here
 div#isotope-content {
   margin: 0 auto;
   width: 100%;
@@ -170,30 +99,6 @@ span.origin-num {
   .origin-num {
     width: 40%;
   }
-}
-.active0 {
-  background-color: $yellow !important;
-  &:hover { background-color: lighten($yellow, 5%) !important; }
-}
-.active1 {
-  background-color: $green !important;
-  &:hover { background-color: lighten($green, 5%) !important; }
-}
-.active2 {
-  background-color: $blue !important;
-  &:hover { background-color: lighten($blue, 5%) !important; }
-}
-.active3 {
-  background-color: $purple !important;
-  &:hover { background-color: lighten($purple, 5%) !important; }
-}
-.active4 {
-  background-color: $pink !important;
-  &:hover { background-color: lighten($pink, 5%) !important; }
-}
-.active5 {
-  background-color: $orange !important;
-  &:hover { background-color: lighten($orange, 5%) !important; }
 }
 
 .destination-title.Africa {background-color: $tgm-blue-dark; }

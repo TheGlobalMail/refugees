@@ -183,10 +183,10 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
         originWrappers.append('div')
           .attr('class', 'origin-summary-table')
-          .html((d) -> "
-            <div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Per 10,000</span><span class=\"origin-num\">#{d.per10kStr}</span></div>
-            <div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Total Applicants</span><span class=\"origin-num\">#{formatNum(d.applicants)}</span></div>
-            ")
+            .html((d) -> "
+              <div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Per 10,000</span><span class=\"origin-num\">#{d.per10kStr}</span></div>
+              <div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Total Applicants</span><span class=\"origin-num\">#{formatNum(d.applicants)}</span></div>
+              ")
 
       $('.origin, .origin-div').on('click', drawPlots)
 

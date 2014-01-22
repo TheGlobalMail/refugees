@@ -1,8 +1,8 @@
 define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
   init = () ->
-    margin = {t: 20, r: 30, b: 20, l:40}
-    w = 220 - margin.l - margin.r
+    margin = {t: 0, r: 40, b: 20, l:20}
+    w = 240 - margin.l - margin.r
     h = 140 - margin.t - margin.b
     x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1).domain(d3.range(2000, 2013))
     y = d3.scale.linear().range([h, 0])
@@ -29,7 +29,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
     line = d3.svg.line()
       .interpolate('basis')
       .x((d) -> x(d.year))
-      .y((d) -> y(d.applicantsPer1k))
+      .y((d) -> y(d.applicantsPer10k))
 
     initIsotope = () ->
       $isotope.isotope({
@@ -40,8 +40,8 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
             $el[0].__data__.applicants
           name: ($el) ->
             $el[0].__data__.destination
-          per1k: ($el) ->
-            $el[0].__data__.per1k
+          per10k: ($el) ->
+            $el[0].__data__.per10k
           population: ($el) ->
             $el[0].__data__.population
         }
@@ -68,7 +68,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $isotope.isotope('reLayout', () ->
         if Math.abs(el.parent().offset().top - origOffset) > (window.innerHeight * 2/3)
           $('html, body').animate({
-            scrollTop: el.parent().offset().top - 70
+            scrollTop: el.parent().offset().top - 90
           }, 700))
 
     # draw all plots for chosen country
@@ -129,8 +129,8 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         .attr('class', 'plotG')
         .attr('transform', 'translate(' + [margin.l, margin.t] + ')')
 
-      y.domain([0, d3.max(yearData, (d) -> Math.max(0.5, d.applicantsPer1k))])
-      newTickVals = d3.range(0, y.domain()[1], 0.2)
+      y.domain([0, d3.max(yearData, (d) -> Math.max(5, d.applicantsPer10k))])
+      newTickVals = d3.range(0, y.domain()[1], 2)
       yAxis.tickValues(newTickVals)
 
       if newTickVals.length > 6
@@ -158,25 +158,25 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
     d3.json '/data/nested.json', (json) ->
       do ->
         data = json.sort((a, b) -> b.destination - a.destination)
+        data.forEach (d) ->
+          d.per10kStr = if d.per10k > 1 then d3.round(d.per10k, 0) else '<1'
 
         countryJoin = d3.select('#isotope-content').selectAll('.destination')
           .data(data, (d) -> d.destination)
         
         countryDivs = countryJoin.enter().append('div')
-          .attr('class', (d) ->  console.log d; "destination #{d.continent.replace(/(\s|\(|\))/g, '')}")
+          .attr('class', (d) ->  "destination #{d.continent.replace(/(\s|\(|\))/g, '')}")
           .html((d) ->
             region = d.region.replace(/(\s|\(|\))/g, '')
             continent = d.continent.replace(/(\s|\(|\))/g, '')
             applicants = formatNum(d.applicants)
-            per1k = d3.round(d.per1k, 2)
             return "<div class=\"destination-title #{region} #{continent}\">
             <h2 class=\"destination-name\">#{d.destination}</h2>
-            </div>
-            <p class=\"overview-p\"><strong>#{applicants}</strong> asylum seekers since 2000, or <strong>#{per1k}</strong> for every 1,000 people.</p>"
+            </div>"
           )
 
         originWrappers = countryDivs.append('div').attr('class', 'origin-wrapper')
-            .html("<div class=\"origin-table-header\"><span class=\"origin-name\">Origin</span><span class=\"origin-num\">No.</span></div>")
+            .html("<div class=\"origin-table-header\"><span class=\"origin-name\">Origin</span><span class=\"origin-num\">Total No.</span></div>")
 
         originJoin = originWrappers.selectAll('.origin')
           .data((d) -> d.origins)
@@ -184,7 +184,10 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         originDivs = originJoin.enter().append('div')
           .attr('class', 'origin')
           .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\)|')/g, ''))
-          .html((d, i) -> '<span class="origin-name"><h4>#' + (i + 1) + ': ' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
+          .html((d, i) -> '<span class="origin-name"><h4>' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
+
+        originWrappers.append('div')
+            .html((d) -> "<div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Per 10,000</span><span class=\"origin-num\">#{d.per10kStr}</span></div>")
 
       $('.origin, .origin-div').on('click', drawPlots)
 

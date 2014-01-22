@@ -31,6 +31,9 @@
           &:hover {
             background-color: darken(white, 10%);
           }
+          &.isotope-sorter-div a {
+            color: $gray-dark;
+          }
           a:active {
             background: none;
           }

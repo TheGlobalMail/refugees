@@ -270,7 +270,7 @@ module.exports = function (grunt) {
         // Performs rewrites based on rev and the useminPrepare configuration
         usemin: {
             options: {
-                assetsDirs: ['<%= yeoman.dist %>']
+                dirs: ['<%= yeoman.dist %>']
             },
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
@@ -312,7 +312,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    src: '{,*/}*.html',
+                    src: '*.html',
                     dest: '<%= yeoman.dist %>'
                 }]
             }
@@ -383,11 +383,11 @@ module.exports = function (grunt) {
         cdn: {
             dist: {
                 src: ['<%= yeoman.dist %>/*.html', './<%= yeoman.dist %>/styles/*.css'],
-                cdn: 'http://refugees-assets.theglobalmail.org'
+                cdn: 'http://asylum-assets.theglobalmail.org'
             },
             staging: {
                 src: ['<%= cdn.dist.src %>'],
-                cdn: 'http://refugees-staging-assets.theglobalmail.org'
+                cdn: 'http://asylum-staging-assets.theglobalmail.org'
             }
         },
         s3: {
@@ -445,7 +445,8 @@ module.exports = function (grunt) {
                 'compass',
                 'copy:styles',
                 'imagemin',
-                'svgmin'
+                'svgmin',
+                'htmlmin'
             ]
         },
         bower: {
@@ -540,8 +541,8 @@ module.exports = function (grunt) {
 
         // Deploy bucket
         var buckets = {
-            production: 'refugees.theglobalmail.org',
-            staging: 'refugees-staging.theglobalmail.orgg'
+            production: 'asylum.theglobalmail.org',
+            staging: 'asylum-staging.theglobalmail.orgg'
         };
 
         // Deploy targets

@@ -153,7 +153,6 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       do ->
         data = json.sort((a, b) -> b.destination - a.destination)
         data.forEach (d) ->
-          console.log d
           d.per10kStr = if d.per10k > 1 then d3.round(d.per10k, 0) else '<1'
 
         countryJoin = d3.select('#isotope-content').selectAll('.destination')

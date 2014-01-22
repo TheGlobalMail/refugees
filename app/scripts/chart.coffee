@@ -62,11 +62,11 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
     reIsotope = (el) ->
       origOffset = el.parent().offset().top
-      $isotope.isotope('reLayout', () ->
+      $isotope.isotope 'reLayout', () ->
         if Math.abs(el.parent().offset().top - origOffset) > (window.innerHeight * 2/3)
           $('html, body').animate({
             scrollTop: el.parent().offset().top - 90
-          }, 700))
+          }, 700)
 
     # draw all plots for chosen country
     drawPlots = () ->
@@ -191,7 +191,8 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
       initIsotope()
 
-    $('.interaction-div a').click () ->
+    $('.interaction-div a').click (e) ->
+      e.preventDefault()
       selText = $(this).text()
       $(this).parents('.dropdown').find('.dropdown-toggle')
         .html(selText + ' <span class="caret"></span>');

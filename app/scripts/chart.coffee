@@ -1,14 +1,13 @@
 define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
   init = () ->
-    margin = {t: 0, r: 40, b: 20, l:20}
+    margin = {t: 5, r: 30, b: 20, l:30}
     w = 240 - margin.l - margin.r
     h = 140 - margin.t - margin.b
     x = d3.scale.ordinal().rangeRoundBands([0, w], 0.1).domain(d3.range(2000, 2013))
     y = d3.scale.linear().range([h, 0])
     formatNum = d3.format(',')
     formatDec = d3.format('r1')
-    numActive = 0
     $isotope = $('#isotope-content')
 
     tooltip = d3.select('#main')
@@ -42,8 +41,6 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
             $el[0].__data__.destination
           per10k: ($el) ->
             $el[0].__data__.per10k
-          population: ($el) ->
-            $el[0].__data__.population
         }
       })
 
@@ -73,19 +70,18 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
     # draw all plots for chosen country
     drawPlots = () ->
-      numActive++
       $self = $(this)
       dataName = $self.attr('data-name')
-      activeClassNum = (numActive % 6).toString()
       $selection = $('div[data-name=' + dataName + ']')
+      $selection.find('.origin-name').addClass('active')
 
       # give active class to selected things, draw charts
       d3.selectAll('[data-name=' + dataName + ']')
-        .classed('active' + activeClassNum, true)
         .each(() ->
           d3el = d3.select(this)
           if d3el[0][0].__data__ and not d3el[0][0].__drawn__
-            d3el.call(makePlot)
+            continent = d3el[0][0].__data__.continent
+            d3el.call(makePlot, continent)
             d3el[0][0].__drawn__ = true
         )
 
@@ -100,20 +96,18 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
     # func to un-transition plot and remove active class
     removePlots = () ->
       $self = $(this)
-      numActive--
       dataName = d3.select(this).attr('data-name')
       $selection = $('div[data-name=' + dataName + ']')
+      $selection.find('.origin-name').removeClass('active')
 
       $selection.find('.plotDiv').slideUp()
       $(":animated").promise().done () ->
-        $selection.removeClass (i, css) ->
-          css.match(/active\d/g, '')[0]
           
         reIsotope($self)
         $selection.unbind('click').click(drawPlots)
 
     # func to draw a plot for a given country
-    makePlot = (self) ->
+    makePlot = (self, continent) ->
       data = self[0][0].__data__
       yearData = data.years
 
@@ -150,7 +144,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       plotLines = plotSvg.append('path')
         .datum(yearData)
         .attr({
-          class: 'plotLine'
+          class: "plotLine #{continent}"
           d: (d) -> line(d)
         })
 
@@ -159,16 +153,17 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       do ->
         data = json.sort((a, b) -> b.destination - a.destination)
         data.forEach (d) ->
+          console.log d
           d.per10kStr = if d.per10k > 1 then d3.round(d.per10k, 0) else '<1'
 
         countryJoin = d3.select('#isotope-content').selectAll('.destination')
           .data(data, (d) -> d.destination)
         
         countryDivs = countryJoin.enter().append('div')
-          .attr('class', (d) ->  "destination #{d.continent.replace(/(\s|\(|\))/g, '')}")
+          .attr('class', (d) ->  "destination #{d.continent}")
           .html((d) ->
-            region = d.region.replace(/(\s|\(|\))/g, '')
-            continent = d.continent.replace(/(\s|\(|\))/g, '')
+            region = d.region
+            continent = d.continent
             applicants = formatNum(d.applicants)
             return "<div class=\"destination-title #{region} #{continent}\">
             <h2 class=\"destination-name\">#{d.destination}</h2>
@@ -184,10 +179,14 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         originDivs = originJoin.enter().append('div')
           .attr('class', 'origin')
           .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\)|')/g, ''))
-          .html((d, i) -> '<span class="origin-name"><h4>' + d.origin + '</h4></span><span class="origin-num"> ' + formatNum(d.applicants) + '</span>')
+          .html((d, i) -> "<span class=\"origin-name #{d.continent}\"><h4>#{d.origin}</h4></span><span class=\"origin-num\">#{formatNum(d.applicants)}</span>")
 
         originWrappers.append('div')
-            .html((d) -> "<div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Per 10,000</span><span class=\"origin-num\">#{d.per10kStr}</span></div>")
+          .attr('class', 'origin-summary-table')
+          .html((d) -> "
+            <div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Per 10,000</span><span class=\"origin-num\">#{d.per10kStr}</span></div>
+            <div class=\"origin-table-header per-tenk\"><span class=\"origin-name\">Total Applicants</span><span class=\"origin-num\">#{formatNum(d.applicants)}</span></div>
+            ")
 
       $('.origin, .origin-div').on('click', drawPlots)
 

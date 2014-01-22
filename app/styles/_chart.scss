@@ -98,14 +98,19 @@ div#isotope-content {
       line-height: 1.2em;
       /*text-align: center;*/
     }
+    .origin-summary-table {
+      margin-top: 10px;
+      padding: 0px 5px;
+    }
     .origin-table-header {
       font-weight: 600;
       padding: 3px 5px;
       border-bottom: 1px dotted gray;
       &.per-tenk {
-        font-size: 120%;
+        font-size: 110%;
         border-bottom: none;
-        margin-top: 15px;
+        padding: 0 3px;
+        margin-top: 5px;
       }
     }
     .plotDiv {
@@ -127,8 +132,8 @@ div#isotope-content {
       .y.axis {
         .tick {
           line {
-            stroke: lighten($gray-light, 10%);
-            stroke-dasharray: 1 1;
+            stroke: lighten($gray-light, 20%);
+            stroke-dasharray: 2 2;
           }
         }
       }
@@ -142,9 +147,8 @@ div#isotope-content {
       }
       .plotLine {
         fill: none;
-        stroke: $gray-dark;
         stroke-width: 2px;
-        opacity: 0.7; 
+        opacity: 0.8; 
       }
     }
   }
@@ -205,6 +209,21 @@ a.NorthernAmerica {color: $tgm-yellow; }
 .destination-title.SouthAmerica {background-color: $tgm-pink; }
 a.SouthAmerica {color: $tgm-pink; }
 
+.plotLine.Africa { stroke: $tgm-blue-dark; }
+.plotLine.Asia {stroke: $tgm-orange; }
+.plotLine.Europe {stroke: $tgm-purple; }
+.plotLine.Oceania {stroke: $tgm-green; }
+.plotLine.NorthernAmerica {stroke: $tgm-yellow; }
+.plotLine.SouthAmerica {stroke: $tgm-pink; }
+
+.origin-name.active { font-weight: bold; }
+.origin-name.active.Africa { color: $tgm-blue-dark; }
+.origin-name.active.Asia {color: $tgm-orange; }
+.origin-name.active.Europe {color: $tgm-purple; }
+.origin-name.active.Oceania {color: $tgm-green; }
+.origin-name.active.NorthernAmerica {color: $tgm-yellow; }
+.origin-name.active.SouthAmerica {color: $tgm-pink; }
+
 .isotope-item {
   z-index: 2;
 }
@@ -214,13 +233,13 @@ a.SouthAmerica {color: $tgm-pink; }
   z-index: 1;
 }
 .origin-wrapper {
-  width: 90%;
+  width: 100%;
   margin: 10px auto 0 auto;
   display: block;
 }
 .origin {
   padding: 3px 5px;
-  border-bottom: 1px dotted gray;
+  border-bottom: 1px solid lighten(gray, 30%);
   &:nth-of-type(n+8) {
    display: none; 
   }

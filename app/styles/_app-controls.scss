@@ -5,7 +5,7 @@
 
 #app-controls {
   z-index: 100;
-  height: 50px;
+  min-height: 50px;
   &.fixed {
     top: 50px;
     position: fixed;
@@ -21,7 +21,6 @@
       background-color: darken(white, 5%);
     }
   }
-  text-align: right;
   .isotope-list-el {
     /*display: inline-block;*/
     /*margin-right: 15px;*/
@@ -34,7 +33,7 @@
     display: inline-block;
   }
   .isotope-list {
-    display: inline-block;
+    margin: 0 10px;
     .isotope-ul {
       padding: 0;
       li {

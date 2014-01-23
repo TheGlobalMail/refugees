@@ -52,7 +52,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $isotope.isotope({ filter: $selector })
       selText = $(this).text()
       $(this).parents('.dropdown').find('.dropdown-toggle')
-        .html(selText + ' <span class="caret"></span>');
+        .html('Filter continent: ' + selText + ' <span class="caret"></span>');
 
     $('.isotope-sorter-div').click (e) ->
       e.preventDefault()
@@ -63,8 +63,14 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $isotope.isotope({ sortBy: sorter, sortAscending: ascending })
       selText = $(this).text()
       $(this).parents('.dropdown').find('.dropdown-toggle')
-        .html(selText + ' <span class="caret"></span>');
+        .html('Sort by: ' + selText + ' <span class="caret"></span>');
       false
+
+    $('#legend').popover({
+      html: true
+      placement: 'bottom'
+      content: '<img class=\"demo-card\" src=\"images/refugee-demo-card.png\">'
+    })
 
     reIsotope = (el) ->
       origOffset = el.parent().offset().top

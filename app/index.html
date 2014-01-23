@@ -102,7 +102,7 @@
               <button type="button" class="btn btn-sm btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
                 Top Origins <span class="caret">
               </button>
-              <ul class="dropdown-menu pull-left"> 
+              <ul class="dropdown-menu"> 
                 <li><div class="origin" data-name="Zimbabwe"><span class="origin-name"><h4>Zimbabwe</h4></span><span class="origin-num">579,864</span></div></li>
                 <li><div class="origin" data-name="Iraq"><span class="origin-name"><h4>Iraq</h4></span><span class="origin-num">457,836</span></div></li>
                 <li><div class="origin" data-name="Somalia"><span class="origin-name"><h4>Somalia</h4></span><span class="origin-num">412,928</span></div></li>
@@ -115,13 +115,13 @@
                 <li><div class="origin" data-name="Myanmar"><span class="origin-name"><h4>Myanmar</h4></span><span class="origin-num">255,185</span></div></li>
               </ul>
             </li>
-            <p class="navbar-text isotope-list-title">Filter region</p>
+            <!--<p class="navbar-text isotope-list-title">Filter region</p>-->
             <li class="dropdown isotope-list">
               <button type="button" class="btn btn-sm btn-default navbar-btn dropdown-toggle" data-toggle="dropdown">
-                Show all <span class="caret">
+                Filter continent: All <span class="caret">
               </button>
-              <ul class="isotope-ul dropdown-menu pull-left" id="isotope-filters" role="menu">
-                 <li><div class="isotope-filter-div active interaction-div"><a href="#" data-filter="*">Show all</a></div></li>
+              <ul class="isotope-ul dropdown-menu" id="isotope-filters" role="menu">
+                 <li><div class="isotope-filter-div active interaction-div"><a href="#" data-filter="*">All</a></div></li>
                  <li><div class="isotope-filter-div interaction-div"><a class="Africa" href="#" data-filter=".Africa">Africa</a></div></li>
                  <li><div class="isotope-filter-div interaction-div"><a class="Asia" href="#" data-filter=".Asia">Asia</a></div></li>
                  <li><div class="isotope-filter-div interaction-div"><a class="Europe" href="#" data-filter=".Europe">Europe</a></div></li>
@@ -130,17 +130,18 @@
                  <li><div class="isotope-filter-div interaction-div"><a class="SouthAmerica" href="#" data-filter=".SouthAmerica">South America</a></div></li>
               </ul>
             </li>
-            <p class="navbar-text isotope-list-title">Sort by</p>
+            <!--<p class="navbar-text isotope-list-title">Sort by</p>-->
             <li class="dropdown isotope-list">
               <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
-                Name <span class="caret">
+                Sort by: Name <span class="caret">
               </button>
-              <ul class="isotope-ul dropdown-menu pull-left" id="isotope-sorters" role="menu">
+              <ul class="isotope-ul dropdown-menu" id="isotope-sorters" role="menu">
                 <li class="dropdown"><div class="isotope-sorter-div active interaction-div"><a href="#name">Name</a></div></li>
                 <li class="dropdown"><div class="isotope-sorter-div interaction-div"><a href="#applicants">Applicants</a></div></li>
                 <li class="dropdown"><div class="isotope-sorter-div interaction-div"><a href="#per10k">Per 10,000</a></div></li>
               </ul>
             </li>
+            <li class="isotope-list" id="legend" data-toggle="popover"><button type="button" class="btn btn-sm navbar-btn btn-default">Legend</button></li>
           </ul>
         </div>
       </nav>

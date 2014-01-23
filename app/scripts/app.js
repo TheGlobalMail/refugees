@@ -1,5 +1,5 @@
 /*global define */
-define(['./chart', './scrollNav', 'bootstrapDropdown', 'bootstrapCollapse'], function (chart) {
+define(['./chart', './scrollNav', 'bootstrapDropdown', 'bootstrapCollapse', 'bootstrapPopover'], function (chart) {
  'use strict';
   chart.init();
 });

@@ -120,14 +120,14 @@ span.origin-num {
 }
 
 @mixin continentColors($continent, $color) {
-  // mixin to allow less fiddly colour changes
-  .destination-title.#{$continent} {background-color: $color; }
+  /* mixin to allow less fiddly colour changes */
+  .destination-title.#{$continent} { background-color: $color; }
   a.#{$continent} { color: $color; }
-  .plotLine.#{$continent} { stroke: $tgm-blue-dark; }
-  .origin-name.active.#{$continent} { color: $tgm-blue-dark; }
+  .plotLine.#{$continent} { stroke: $color; }
+  .origin-name.active.#{$continent} { color: $color; }
 }
 
-.origin-name.active { font-weight: bold; }
+.origin-name.active h4 { font-weight: 800; }
 
 @include continentColors('Africa', $tgm-blue-dark);
 @include continentColors('Asia', $tgm-orange);

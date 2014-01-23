@@ -44,21 +44,27 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         }
       })
 
-    $('.isotope-filter-div').click(() ->
+    $('.isotope-filter-div').click (e) ->
+      e.preventDefault()
       $('.isotope-filter-div').removeClass('active')
       $(this).addClass('active')
       $selector = $(this).find('a').attr('data-filter')
       $isotope.isotope({ filter: $selector })
-    )
+      selText = $(this).text()
+      $(this).parents('.dropdown').find('.dropdown-toggle')
+        .html(selText + ' <span class="caret"></span>');
 
-    $('.isotope-sorter-div').click(() ->
+    $('.isotope-sorter-div').click (e) ->
+      e.preventDefault()
       $('.isotope-sorter-div').removeClass('active')
       $(this).addClass('active')
       sorter = $(this).find('a').attr('href').slice(1)
       ascending = if sorter is 'name' then true else false
       $isotope.isotope({ sortBy: sorter, sortAscending: ascending })
+      selText = $(this).text()
+      $(this).parents('.dropdown').find('.dropdown-toggle')
+        .html(selText + ' <span class="caret"></span>');
       false
-    )
 
     reIsotope = (el) ->
       origOffset = el.parent().offset().top
@@ -202,10 +208,5 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
 
       initIsotope()
 
-    $('.interaction-div a').click (e) ->
-      e.preventDefault()
-      selText = $(this).text()
-      $(this).parents('.dropdown').find('.dropdown-toggle')
-        .html(selText + ' <span class="caret"></span>');
 
   return { init: init }

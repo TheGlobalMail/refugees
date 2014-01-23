@@ -85,7 +85,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $self = $(this)
       dataName = $self.attr('data-name')
       $selection = $('div[data-name=' + dataName + ']')
-      $selection.find('.origin-name').addClass('active')
+      $selection.addClass('active')
 
       # give active class to selected things, draw charts
       d3.selectAll('[data-name=' + dataName + ']')
@@ -119,7 +119,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $self = $(this)
       dataName = d3.select(this).attr('data-name')
       $selection = $('div[data-name=' + dataName + ']')
-      $selection.find('.origin-name').removeClass('active')
+      $selection.removeClass('active')
 
       $selection.find('.plotDiv').slideUp()
       $(":animated").promise().done () ->
@@ -197,9 +197,9 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
           .data((d) -> d.origins)
 
         originDivs = originJoin.enter().append('div')
-          .attr('class', 'origin')
+          .attr('class', (d) -> "origin #{d.continent}")
           .attr('data-name', (d) -> d.origin.replace(/(\s|\(|\)|')/g, ''))
-          .html((d, i) -> "<span class=\"origin-name #{d.continent}\"><h4>#{d.origin}</h4></span><span class=\"origin-num\">#{formatNum(d.applicants)}</span>")
+          .html((d, i) -> "<span class=\"origin-name\"><h4>#{d.origin}</h4></span><span class=\"origin-num\">#{formatNum(d.applicants)}</span>")
 
         originWrappers.append('div')
           .attr('class', 'origin-summary-table')

@@ -1,4 +1,4 @@
-$hilight: rgba(255, 248, 199, 0.40);
+$hilight: rgba(255, 248, 199, 0.60);
 
 #isotope-content {
   margin: 0 auto;
@@ -10,12 +10,17 @@ $hilight: rgba(255, 248, 199, 0.40);
     display: inline-block;
     padding-bottom: 10px;
     background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
     .destination-name {
       text-transform: uppercase;
       line-height: 1.5em;
       padding-left: 10px;
       color: white;
       margin: 0;
+    }
+    .destination-title {
+      border-radius: 4px 4px 0 0;      
     }
     h3 {
       text-align: center;
@@ -124,10 +129,15 @@ span.origin-num {
   .destination-title.#{$continent} { background-color: $color; }
   a.#{$continent} { color: $color; }
   .plotLine.#{$continent} { stroke: $color; }
-  .origin-name.active.#{$continent} { color: $color; }
+  .origin.#{$continent}.active {
+    .origin-name { color: $color; }
+  }
+  .origin.#{$continent}.active-hover {
+    // background-color: lighten($color, 30%);
+  }
 }
 
-.origin-name.active h4 { font-weight: 800; }
+.origin.active .origin-name h4 { font-weight: 800; }
 
 @include continentColors('Africa', $tgm-blue-dark);
 @include continentColors('Asia', $tgm-orange);

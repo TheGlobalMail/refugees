@@ -90,7 +90,6 @@ div#isotope-content {
   }
 
   &:hover {
-    background-color: lighten($hilight, 5%);
     cursor: pointer;
   }
   h4 {
@@ -107,6 +106,9 @@ span.origin-num {
   width: 30%;
   display: inline-block;
   text-align: right;
+}
+.active-hover {
+  background-color: lighten($hilight, 5%);
 }
 .top-origins {
   .origin-name {

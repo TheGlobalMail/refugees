@@ -71,7 +71,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $isotope.isotope 'reLayout', () ->
         if Math.abs(el.parent().offset().top - origOffset) > (window.innerHeight * 2/3)
           $('html, body').animate({
-            scrollTop: el.parent().offset().top - 90
+            scrollTop: el.parent().offset().top - 150
           }, 700)
 
     # draw all plots for chosen country

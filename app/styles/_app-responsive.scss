@@ -11,10 +11,22 @@ $sml-screen-margin: 10px;
 
 // Big stuff
 @media only screen and (max-width: $big-width) {
+  #filter-buttons {
+    display: inline;
+  }
+  #filter-dropdown {
+    display: none;
+  }
 }
 
 // Portrait tablets
 @media only screen and (max-width: $med-width) {
+  #filter-buttons {
+    display: none;
+  }
+  #filter-dropdown {
+    display: inline !important;
+  }
 }
 
 // Big phones, small tablets

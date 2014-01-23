@@ -124,10 +124,21 @@ span.origin-num {
   }
 }
 
+#isotope-filters {
+  .interaction-div { 
+    background-color: $gray-dark;
+    border-radius: 2px;
+  }
+  a { color: #fff; }
+}
+
 @mixin continentColors($continent, $color) {
   /* mixin to allow less fiddly colour changes */
   .destination-title.#{$continent} { background-color: $color; }
-  a.#{$continent} { color: $color; }
+  #isotope-filters {
+    div.#{$continent} { background-color: $color; }
+    a { color: #fff; }
+  }
   .plotLine.#{$continent} { stroke: $color; }
   .origin.#{$continent}.active {
     .origin-name { color: $color; }

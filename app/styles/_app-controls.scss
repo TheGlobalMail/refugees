@@ -12,6 +12,12 @@
     width: 100%;
   }
 }
+#filter-buttons {
+  margin-right: 25px;
+}
+#filter-dropdown {
+  display: none;
+}
 
 .isotope-list-wrapper {
   width: 100%;
@@ -26,10 +32,11 @@
     /*margin-right: 15px;*/
   }
   .isotope-list-title {
-    font-size: 1.1em;
-    color: lighten(black, 15%);
-    line-height: 0;
-    margin-top: 25px;
+    font-size: 1em;
+    color: lighten(black, 25%);
+    line-height: 1em;
+    margin-left: 0;
+    margin-right: 25px;
     display: inline-block;
   }
   .isotope-list {
@@ -47,6 +54,9 @@
           }
           &.isotope-sorter-div a {
             color: $gray-dark;
+          }
+          a {
+            text-decoration: none;
           }
           a:active {
             background: none;

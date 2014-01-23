@@ -61,8 +61,8 @@ $icon-font-path: '../bower_components/sass-bootstrap/fonts/';
 // @import '../bower_components/tgm-styles/scss/widgets/tgm-special-nav';
 
 // Any other app-level variables (optional)
+@import '_isotope';
 @import '_app-variables';
-@import "../bower_components/isotope/css/style.css";
 
 // App-specific style 
 @import '_app-controls';

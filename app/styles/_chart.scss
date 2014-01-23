@@ -22,23 +22,17 @@ div#isotope-content {
       text-align: center;
       font-size: 110%;
     }
-    .overview-p {
-      font-size: 110%;
-      line-height: 1.2em;
-      /*text-align: center;*/
-    }
     .origin-summary-table {
       margin-top: 10px;
-      padding: 0px 5px;
+      padding: 0px 10px;
     }
     .origin-table-header {
       font-weight: 600;
-      padding: 3px 5px;
+      padding: 3px 10px;
       border-bottom: 1px dotted gray;
       &.per-tenk {
-        font-size: 110%;
         border-bottom: none;
-        padding: 0 3px;
+        padding: 0;
         margin-top: 5px;
       }
     }
@@ -141,9 +135,10 @@ a.SouthAmerica {color: $tgm-pink; }
   width: 100%;
   margin: 10px auto 0 auto;
   display: block;
+  font-size: 90%;
 }
 .origin {
-  padding: 3px 5px;
+  padding: 3px 10px;
   border-bottom: 1px solid lighten(gray, 30%);
   &:nth-of-type(n+8) {
    display: none; 
@@ -154,6 +149,7 @@ a.SouthAmerica {color: $tgm-pink; }
     cursor: pointer;
   }
   h4 {
+    font-weight: normal;
     line-height: 1em;
     display: inline;
   }

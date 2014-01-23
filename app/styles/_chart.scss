@@ -1,16 +1,16 @@
 $hilight: rgba(255, 248, 199, 0.40);
 
-div#isotope-content {
+#isotope-content {
   margin: 0 auto;
   width: 100%;
   position: relative;
-  div.destination {
+  .destination {
     width: 240px;
     margin: 0.5em;
     display: inline-block;
     padding-bottom: 10px;
     background-color: white;
-    h2.destination-name {
+    .destination-name {
       text-transform: uppercase;
       line-height: 1.5em;
       padding-left: 10px;
@@ -119,39 +119,22 @@ span.origin-num {
   }
 }
 
-.destination-title.Africa {background-color: $tgm-blue-dark; }
-a.Africa { color: $tgm-blue-dark; }
-.destination-title.Asia { background-color: $tgm-orange; }
-a.Asia {color: $tgm-orange; }
-.destination-title.Europe {background-color: $tgm-purple; }
-a.Europe {color: $tgm-purple; }
-.destination-title.Oceania {background-color: $tgm-green; }
-a.Oceania {color: $tgm-green; }
-.destination-title.NorthernAmerica {background-color: $tgm-yellow; }
-a.NorthernAmerica {color: $tgm-yellow; }
-.destination-title.SouthAmerica {background-color: $tgm-pink; }
-a.SouthAmerica {color: $tgm-pink; }
-
-.plotLine.Africa { stroke: $tgm-blue-dark; }
-.plotLine.Asia {stroke: $tgm-orange; }
-.plotLine.Europe {stroke: $tgm-purple; }
-.plotLine.Oceania {stroke: $tgm-green; }
-.plotLine.NorthernAmerica {stroke: $tgm-yellow; }
-.plotLine.SouthAmerica {stroke: $tgm-pink; }
+@mixin continentColors($continent, $color) {
+  // mixin to allow less fiddly colour changes
+  .destination-title.#{$continent} {background-color: $color; }
+  a.#{$continent} { color: $color; }
+  .plotLine.#{$continent} { stroke: $tgm-blue-dark; }
+  .origin-name.active.#{$continent} { color: $tgm-blue-dark; }
+}
 
 .origin-name.active { font-weight: bold; }
-.origin-name.active.Africa { color: $tgm-blue-dark; }
-.origin-name.active.Asia {color: $tgm-orange; }
-.origin-name.active.Europe {color: $tgm-purple; }
-.origin-name.active.Oceania {color: $tgm-green; }
-.origin-name.active.NorthernAmerica {color: $tgm-yellow; }
-.origin-name.active.SouthAmerica {color: $tgm-pink; }
 
-.isotope-item {
-  z-index: 2;
-}
+@include continentColors('Africa', $tgm-blue-dark);
+@include continentColors('Asia', $tgm-orange);
+@include continentColors('Europe', $tgm-purple);
+@include continentColors('Oceania', $tgm-green);
+@include continentColors('NorthernAmerica', $tgm-yellow);
+@include continentColors('SouthAmerica', $tgm-pink);
 
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
-}
+.isotope-item { z-index: 2; }
+.isotope-hidden.isotope-item { pointer-events: none; z-index: 1; }

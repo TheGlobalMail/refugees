@@ -411,9 +411,9 @@ module.exports = function (grunt) {
             secretAccessKey: "<%= aws.secretAccessKey %>",
             zones: {
               'theglobalmail.org': [{
-                name: 'refugees.theglobalmail.org',
+                name: 'asylum.theglobalmail.org',
                 type: 'CNAME',
-                values: ['refugees.theglobalmail.org.s3-website-ap-southeast-2.amazonaws.com']
+                values: ['asylum.theglobalmail.org.s3-website-ap-southeast-2.amazonaws.com']
               }]
             }
           },

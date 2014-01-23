@@ -11,9 +11,14 @@ body {
   }
 }
 
+.popover {
+  max-width: 100%;
+}
+
 .demo-card {
   display: block;
   max-width: 100%;
+  margin: 0 auto;
 }
 
 .intro-content {

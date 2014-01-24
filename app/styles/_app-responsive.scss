@@ -8,7 +8,6 @@ $bigger-width:   $big-width + 1px;   // -big screens (default, used as min-width
 
 $med-screen-margin: 20px;
 $sml-screen-margin: 10px;
-$grid-float-breakpoint: 600px;
 
 // Big stuff
 @media only screen and (max-width: $big-width) {

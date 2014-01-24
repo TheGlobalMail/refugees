@@ -41,7 +41,8 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
             $el[0].__data__.destination
           per10k: ($el) ->
             $el[0].__data__.per10k
-        }
+        },
+        sortBy: 'name'
       })
 
     $('.isotope-filter-div').click (e) ->

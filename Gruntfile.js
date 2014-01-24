@@ -381,13 +381,16 @@ module.exports = function (grunt) {
             }
         },
         cdn: {
+            options: {
+              flatten: true
+            },
             dist: {
-                src: ['<%= yeoman.dist %>/*.html', './<%= yeoman.dist %>/styles/*.css'],
-                cdn: 'http://asylum-assets.theglobalmail.org'
+                src: ['<%= yeoman.dist %>/index.html'],
+                cdn: 'http://asylum-assets.theglobalmail.org',
             },
             staging: {
                 src: ['<%= cdn.dist.src %>'],
-                cdn: 'http://asylum-staging-assets.theglobalmail.org'
+                cdn: 'http://asylum-staging-assets.theglobalmail.org',
             }
         },
         s3: {
@@ -405,6 +408,7 @@ module.exports = function (grunt) {
                 src: "**"
             }
         },
+        /*
         route53: {
           options: {
             accessKeyId: "<%= aws.accessKeyId %>",
@@ -418,6 +422,7 @@ module.exports = function (grunt) {
             }
           },
         },
+        */
         modernizr: {
             devFile: '<%= yeoman.app %>/bower_components/modernizr/modernizr.js',
             outputFile: '<%= yeoman.dist %>/bower_components/modernizr/modernizr.js',
@@ -549,6 +554,7 @@ module.exports = function (grunt) {
         var targetToTask = {
             production: [
                 'build:production',
+                'route53',
                 's3'
             ],
             staging: [

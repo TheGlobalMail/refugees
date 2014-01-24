@@ -22,7 +22,7 @@
     "grunt-rev": "~0.1.0",
     "grunt-autoprefixer": "~0.2.0",
     "grunt-cdn": "git://github.com/bxjx/grunt-cdn.git#requirejs_support",
-    "grunt-aws": "*",
+    "grunt-aws": "git://github.com/jpillora/grunt-aws.git",
     "grunt-usemin": "~0.1.10",
     "grunt-mocha": "~0.4.0",
     "grunt-modernizr": "~0.4.0",

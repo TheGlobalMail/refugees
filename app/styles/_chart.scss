@@ -129,7 +129,10 @@ span.origin-num {
     background-color: $gray-dark;
     border-radius: 2px;
   }
-  a { color: #fff; }
+  a { 
+    color: #fff;
+    font-size: 90%;
+  }
 }
 
 @mixin continentColors($continent, $color) {

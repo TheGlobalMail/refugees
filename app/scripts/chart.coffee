@@ -84,6 +84,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
           $('html, body').animate({
             scrollTop: el.parent().offset().top - 150
           }, 700)
+        setTimeout (->$('svg:visible').attr('transform', 'translate(0,0)')), 500
 
     # draw all plots for chosen country
     drawPlots = () ->

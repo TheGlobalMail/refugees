@@ -72,7 +72,9 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
     $('#legend').popover({
       html: true
       placement: 'bottom'
-      content: '<img class=\"demo-card\" src=\"images/refugee-demo-card.png\">'
+      content: () ->
+        imgPath = $('#img-demo-card').attr('src')
+        "<img class=\"demo-card\" src=\"#{imgPath}\">"
     })
 
     reIsotope = (el) ->

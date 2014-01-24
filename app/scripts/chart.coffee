@@ -53,7 +53,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $isotope.isotope({ filter: $selector })
       selText = $(this).text()
       $(this).parents('.dropdown').find('.dropdown-toggle')
-        .html('Filter continent: ' + selText + ' <span class="caret"></span>');
+        .html('Filter continent: ' + selText + ' <span class="caret"></span>')
 
     $('.isotope-sorter-div').click (e) ->
       e.preventDefault()
@@ -63,8 +63,10 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       ascending = if sorter is 'name' then true else false
       $isotope.isotope({ sortBy: sorter, sortAscending: ascending })
       selText = $(this).text()
-      $(this).parents('.dropdown').find('.dropdown-toggle')
-        .html('Sort by: ' + selText + ' <span class="caret"></span>');
+      $dropdown = $(this).parents('.dropdown')
+      $dropdown.find('.dropdown-toggle')
+        .html('Sort by: ' + selText + ' <span class="caret"></span>')
+      $dropdown.removeClass('open')
       false
 
     $('#legend').popover({

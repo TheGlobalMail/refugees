@@ -16,6 +16,12 @@ body {
 }
 .popover {
   max-width: 100%;
+  z-index: 20;
+  min-width: 320px;
+  max-width: 450px;
+  .popover-content {
+    background-color: $color-bg;
+  }
 }
 
 .demo-card {

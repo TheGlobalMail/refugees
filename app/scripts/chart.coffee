@@ -143,7 +143,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $selection.find('.plotDiv').slideUp()
 
       $(":animated").promise().done () ->
-        $isotope.isotope 'reLayout'
+        $isotope.isotope({ sortBy: 'name', sortAcending: true, filter: '*' })
         $selection.unbind('click').click(drawPlots)
         $('#plot-reset').css('display', 'none')
         $selection.removeClass('active')

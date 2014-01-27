@@ -52,6 +52,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $selector = $(this).find('a').attr('data-filter')
       $isotope.isotope({ filter: $selector })
       selText = $(this).text()
+      reIsotope($(this))
       $(this).parents('.dropdown').find('.dropdown-toggle')
         .html('Filter continent: ' + selText + ' <span class="caret"></span>')
 
@@ -67,6 +68,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $dropdown.find('.dropdown-toggle')
         .html('Sort by: ' + selText + ' <span class="caret"></span>')
       $dropdown.removeClass('open')
+      reIsotope($(this))
       false
 
     $('#legend').popover({
@@ -77,6 +79,8 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         "<img class=\"demo-card\" src=\"#{imgPath}\">"
     })
 
+    $('#plot-reset').click(() -> resetPlots())
+
     reIsotope = (el) ->
       origOffset = el.parent().offset().top
       $isotope.isotope 'reLayout', () ->
@@ -84,7 +88,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
           $('html, body').animate({
             scrollTop: el.parent().offset().top - 150
           }, 700)
-        setTimeout (->$('svg:visible').attr('transform', 'translate(0,0)')), 500
+        setTimeout (-> $('svg:visible').attr('transform', 'translate(0,0)')), 400
 
     # draw all plots for chosen country
     drawPlots = () ->
@@ -92,6 +96,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       dataName = $self.attr('data-name')
       $selection = $('div[data-name=' + dataName + ']')
       $selection.addClass('active')
+      $('#plot-reset').css('display', 'inline')
 
       # give active class to selected things, draw charts
       d3.selectAll('[data-name=' + dataName + ']')
@@ -132,6 +137,16 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
           
         reIsotope($self)
         $selection.unbind('click').click(drawPlots)
+
+    resetPlots = () ->
+      $selection = $('.origin.active')
+      $selection.find('.plotDiv').slideUp()
+
+      $(":animated").promise().done () ->
+        $isotope.isotope 'reLayout'
+        $selection.unbind('click').click(drawPlots)
+        $('#plot-reset').css('display', 'none')
+        $selection.removeClass('active')
 
     # func to draw a plot for a given country
     makePlot = (self, continent) ->
@@ -197,7 +212,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
           )
 
         originWrappers = countryDivs.append('div').attr('class', 'origin-wrapper')
-            .html("<div class=\"origin-table-header\"><span class=\"origin-name\">Origin</span><span class=\"origin-num\">Total No.</span></div>")
+          .html("<div class=\"origin-table-header\"><span class=\"origin-name\">Origin</span><span class=\"origin-num\">Total No.</span></div>")
 
         originJoin = originWrappers.selectAll('.origin')
           .data((d) -> d.origins)

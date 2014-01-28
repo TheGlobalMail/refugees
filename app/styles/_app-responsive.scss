@@ -45,13 +45,13 @@ $sml-screen-margin: 10px;
 
 // Big phones, small tablets
 @media only screen and (max-width: $small-width) {
-  #app-controls {
-    &.fixed {
-      top: 32px !important;
-    }
-  }
-  .navbar-nav {
-    margin: 7.5px 15px !important;
+  /*#app-controls {*/
+    /*&.fixed {*/
+      /*top: 32px !important;*/
+    /*}*/
+  /*}*/
+  .navbar-collapse {
+    padding-left: 0 !important;
   }
 } 
 

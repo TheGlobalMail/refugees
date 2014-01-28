@@ -46,7 +46,6 @@
     <a href="http://www.theglobalmail.org/" class="brand" title="Go to The Global Mail">The Global Mail</a>
     <div class="article-title-container">
       <span class="article-title">
-        Seeking Asylum
       </span>
       <i class="icon-reorder burger"></i>
     </div>
@@ -81,9 +80,8 @@
       </p>
       <img id="img-demo-card" class="demo-card" src="images/refugee-demo-card.png" alt=""></img>
       <p class="lead">
-        Interrogate the data on the top 60 asylum seeker destinations by clicking
-        on the names of origin countries, using the filter and sort options in
-        the toolbar, and by comparing across continents.
+        Interrogate the data by clicking on the names of origin countries, using the filter and sort options in
+        the toolbar, and comparing across continents.
       </p>
     </div>
     <div id="app-controls-wrapper" class="isotope-list-wrapper">
@@ -98,15 +96,15 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav pull-left navbar-nav">
             <li class="isotope-list" id="filter-buttons">
-              <p class="navbar-text isotope-list-title">Continents</p>
+              <p class="navbar-text isotope-list-title">Filter</p>
               <ul class="isotope-ul nav navbar-nav" id="isotope-filters" role="menu">
                  <li><div class="isotope-filter-div active interaction-div"><a href="#" data-filter="*">All</a></div></li>
                  <li><div class="isotope-filter-div interaction-div Africa"><a class="Africa" href="#" data-filter=".Africa">Africa</a></div></li>
                  <li><div class="isotope-filter-div interaction-div Asia"><a class="Asia" href="#" data-filter=".Asia">Asia</a></div></li>
                  <li><div class="isotope-filter-div interaction-div Europe"><a class="Europe" href="#" data-filter=".Europe">Europe</a></div></li>
                  <li><div class="isotope-filter-div interaction-div Oceania"><a class="Oceania" href="#" data-filter=".Oceania">Oceania</a></div></li>
-                 <li><div class="isotope-filter-div interaction-div NorthernAmerica"><a class="NorthernAmerica" href="#" data-filter=".NorthernAmerica">North America</a></div></li>
-                 <li><div class="isotope-filter-div interaction-div SouthAmerica"><a class="SouthAmerica" href="#" data-filter=".SouthAmerica">South America</a></div></li>
+                 <li><div class="isotope-filter-div interaction-div NorthernAmerica"><a class="NorthernAmerica" href="#" data-filter=".NorthernAmerica">N. America</a></div></li>
+                 <li><div class="isotope-filter-div interaction-div SouthAmerica"><a class="SouthAmerica" href="#" data-filter=".SouthAmerica">S. America</a></div></li>
               </ul>
             </li>
             <li class="dropdown isotope-list" id="filter-dropdown">
@@ -119,8 +117,8 @@
                  <li><div class="isotope-filter-div interaction-div Asia"><a class="Asia" href="#" data-filter=".Asia">Asia</a></div></li>
                  <li><div class="isotope-filter-div interaction-div Europe"><a class="Europe" href="#" data-filter=".Europe">Europe</a></div></li>
                  <li><div class="isotope-filter-div interaction-div Oceania"><a class="Oceania" href="#" data-filter=".Oceania">Oceania</a></div></li>
-                 <li><div class="isotope-filter-div interaction-div NorthernAmerica"><a class="NorthernAmerica" href="#" data-filter=".NorthernAmerica">North America</a></div></li>
-                 <li><div class="isotope-filter-div interaction-div SouthAmerica"><a class="SouthAmerica" href="#" data-filter=".SouthAmerica">South America</a></div></li>
+                 <li><div class="isotope-filter-div interaction-div NorthernAmerica"><a class="NorthernAmerica" href="#" data-filter=".NorthernAmerica">N. America</a></div></li>
+                 <li><div class="isotope-filter-div interaction-div SouthAmerica"><a class="SouthAmerica" href="#" data-filter=".SouthAmerica">S. America</a></div></li>
               </ul>
             </li>
             <li class="dropdown isotope-list top-origins">
@@ -140,7 +138,7 @@
                 <li><div class="origin" data-name="Myanmar"><span class="origin-name"><h4>Myanmar</h4></span><span class="origin-num">255,185</span></div></li>
               </ul>
             </li>
-            <li class="dropdown isotope-list">
+            <li class="dropdown isotope-list" id="sorter-dropdown">
               <button type="button" class="btn btn-default btn-sm navbar-btn dropdown-toggle" data-toggle="dropdown">
                 Sort by: Name <span class="caret">
               </button>
@@ -150,12 +148,20 @@
                 <li class="dropdown"><div class="isotope-sorter-div interaction-div"><a href="#per10k">Per 10,000</a></div></li>
               </ul>
             </li>
-            <li class="isotope-list" id="legend" data-toggle="popover"><button type="button" class="btn btn-sm navbar-btn btn-default">Legend</button></li>
+            <li class="isotope-list" id="legend" data-toggle="popover"
+            data-container="body"><button type="button" class="btn btn-sm navbar-btn btn-default">Legend</button></li>
+            <li class="isotope-list" id="plot-reset"><button type="button"
+              class="btn btn-sm navbar-btn btn-default">Reset</button></li>
           </ul>
         </div>
       </nav>
     </div>
-    <div id="isotope-content"> </div>
+    <div id="initial-loader" class="loader loading">
+      <h1 class="loader-text">
+        Loading<span>.</span><span>.</span><span>.</span>
+      </h1>
+    </div>
+    <div id="isotope-content" class="loading"> </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

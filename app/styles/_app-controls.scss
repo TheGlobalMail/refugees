@@ -1,13 +1,14 @@
 #app-controls-wrapper {
   height: 45px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 #app-controls {
   z-index: 100;
   min-height: 45px;
+  padding-left: 6px;
   &.fixed {
-    top: 50px;
+    top: 48px;
     position: fixed;
     width: 100%;
   }
@@ -19,8 +20,16 @@
   display: none;
 }
 
+#plot-reset {
+  display: none;
+  &.active {
+    display: inline;
+  }
+}
+
 .isotope-list-wrapper {
   width: 100%;
+  font-size: 90%;
   .nav {
     padding-right: 20px;
     .btn-default {
@@ -40,13 +49,13 @@
     display: inline-block;
   }
   .isotope-list {
-    margin: 0 10px;
+    margin: 0 6px;
     .isotope-ul {
       padding: 0;
       li {
         .interaction-div {
-          padding: 3px 10px;
-          margin: 2px 1px;
+          padding: 5px 10px;
+          margin: 1px;
           background-color: white;
           cursor: pointer;
           &:hover {

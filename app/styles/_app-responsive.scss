@@ -17,6 +17,9 @@ $sml-screen-margin: 10px;
   #filter-dropdown {
     display: none;
   }
+  .navbar-collapse {
+    padding-left: 15px;
+  }
 }
 
 // Portrait tablets
@@ -32,14 +35,26 @@ $sml-screen-margin: 10px;
       border-radius: 0px !important;
     }
   }
+  .navbar-nav {
+    margin: 0 !important;
+  }
+  .navbar-collapse {
+    padding-left: 0 !important;
+  }
 }
 
 // Big phones, small tablets
 @media only screen and (max-width: $small-width) {
-  #app-controls {
-    &.fixed {
-      top: 32px !important;
-    }
+  /*#app-controls {*/
+    /*&.fixed {*/
+      /*top: 32px !important;*/
+    /*}*/
+  /*}*/
+  .interaction-div {
+    padding: 2px 10px !important;
+  }
+  .navbar-collapse {
+    padding-left: 0 !important;
   }
 } 
 

@@ -17,6 +17,9 @@ $sml-screen-margin: 10px;
   #filter-dropdown {
     display: none;
   }
+  .navbar-collapse {
+    padding-left: 15px;
+  }
 }
 
 // Portrait tablets
@@ -34,6 +37,9 @@ $sml-screen-margin: 10px;
   }
   .navbar-nav {
     margin: 0 !important;
+  }
+  .navbar-collapse {
+    padding-left: 0 !important;
   }
 }
 

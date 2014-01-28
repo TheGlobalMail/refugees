@@ -49,6 +49,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       e.preventDefault()
       $('.isotope-filter-div').removeClass('active')
       $(this).addClass('active')
+      $('#plot-reset').addClass('active')
       $selector = $(this).find('a').attr('data-filter')
       $isotope.isotope({ filter: $selector })
       selText = $(this).text()
@@ -60,6 +61,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       e.preventDefault()
       $('.isotope-sorter-div').removeClass('active')
       $(this).addClass('active')
+      $('#plot-reset').addClass('active')
       sorter = $(this).find('a').attr('href').slice(1)
       ascending = if sorter is 'name' then true else false
       $isotope.isotope({ sortBy: sorter, sortAscending: ascending })
@@ -96,7 +98,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       dataName = $self.attr('data-name')
       $selection = $('div[data-name=' + dataName + ']')
       $selection.addClass('active')
-      $('#plot-reset').css('display', 'inline')
+      $('#plot-reset').addClass('active')
 
       # give active class to selected things, draw charts
       d3.selectAll('[data-name=' + dataName + ']')
@@ -143,10 +145,15 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $selection.find('.plotDiv').slideUp()
 
       $(":animated").promise().done () ->
-        $isotope.isotope({ sortBy: 'name', sortAcending: true, filter: '*' })
+        $isotope.isotope({ sortBy: 'name', sortAscending: true, filter: '*' })
         $selection.unbind('click').click(drawPlots)
-        $('#plot-reset').css('display', 'none')
+        $('#plot-reset').removeClass('active')
         $selection.removeClass('active')
+        $('#filter-dropdown').find('.dropdown-toggle')
+          .html('Filter continent: All <span class="caret"></span>')
+        $('#sorter-dropdown').find('.dropdown-toggle')
+          .html('Sort by: Name <span class="caret"></span>')
+        $('li.dropdown .active').removeClass('active')
 
     # func to draw a plot for a given country
     makePlot = (self, continent) ->

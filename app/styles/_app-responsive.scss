@@ -32,6 +32,9 @@ $sml-screen-margin: 10px;
       border-radius: 0px !important;
     }
   }
+  .navbar-nav {
+    margin: 0 !important;
+  }
 }
 
 // Big phones, small tablets
@@ -40,6 +43,9 @@ $sml-screen-margin: 10px;
     &.fixed {
       top: 32px !important;
     }
+  }
+  .navbar-nav {
+    margin: 7.5px 15px !important;
   }
 } 
 

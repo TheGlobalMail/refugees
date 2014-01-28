@@ -165,6 +165,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       # draw svg and axes
       plotSvg = plotDiv.append('svg')
         .attr({
+          class: 'plotSvg'
           width: w + margin.l + margin.r
           height: h + margin.t + margin.b
         })

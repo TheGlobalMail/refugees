@@ -9,6 +9,9 @@ body {
   &.special-feature {
     min-height: 32px;
     padding: 5px 0;
+    .brand {
+      top: 15%;
+    }
   }
 }
 

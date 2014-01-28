@@ -1,11 +1,12 @@
 #app-controls-wrapper {
   height: 45px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 #app-controls {
   z-index: 100;
   min-height: 45px;
+  padding-left: 6px;
   &.fixed {
     top: 48px;
     position: fixed;

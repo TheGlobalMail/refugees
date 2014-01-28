@@ -240,7 +240,8 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
       $('.origin, .origin-div').on('click', drawPlots)
       $('.origin, .origin-div').on('mouseover', highlightPlots)
       $('.origin, .origin-div').on('mouseout', removeHighlight)
-
+      $('.loader').fadeOut('slow')
+      $('#app-controls-wrapper,#isotope-content').removeClass('loading')
       initIsotope()
 
 

@@ -368,6 +368,7 @@ module.exports = function (grunt) {
                         'images/{,*/}*.{webp,gif,svg,png}',
                         'styles/fonts/{,*/}*.*',
                         'data/{,*/}*.*',
+                        'fb.png',
                         'bower_components/sass-bootstrap/fonts/*.*'
                     ]
                 }]

@@ -199,7 +199,7 @@ define ['d3', 'jquery', 'isotope'], (d3, $, isotope) ->
         })
 
     # make all the info
-    d3.json '/data/nested2.json', (json) ->
+    d3.json '/data/nested.json', (json) ->
       do ->
         data = json.sort((a, b) -> b.destination - a.destination)
         data.forEach (d) ->
